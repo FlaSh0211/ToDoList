@@ -1,12 +1,15 @@
 import React from 'react';
-
+import styled from "styled-components"
+import Nav from 'component/NavBar/Navbar';
+import 'antd/dist/antd.css'
 const Home = () => {
     return (
-        <div>
-        hw
-        </div>
+        <Wrapper>
+            <Nav/>
+        </Wrapper>
     )
 }
+const Wrapper = styled.div`
 
-const Wrapper = '
+`
 export default Home;
