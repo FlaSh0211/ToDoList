@@ -8,4 +8,5 @@ const Home = () => {
     )
 }
 
+const Wrapper = '
 export default Home;
