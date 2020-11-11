@@ -1,51 +1,72 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
-import { Menu, Button } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-
-const { SubMenu } = Menu;
+import { Menu, Avatar, Col, Row, Dropdown } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const Nav = () => {
  
     const [state, setState] = useState({
-      current: 'mail',
+      current: null,
     }); 
+    // const [userName, setUserName] = useState(null) ;
 
     const handleClick = e => {
       console.log(e.key)
       setState({ current: e.key });
     };
     const { current } = state;
-    return (
 
-        <Menu onClick={handleClick} selectedKeys={current} mode="horizontal">
-        <Menu.Item key="mail" icon={<MailOutlined />}>
-          Navigation One
+    const menu = (
+      <Menu>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+            1st menu item
+          </a>
         </Menu.Item>
-        <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
-          Navigation Two
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            2nd menu item
+          </a>
         </Menu.Item>
-        <SubMenu key="SubMenu" icon={<SettingOutlined />} title="Navigation Three - Submenu">
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
-        <Menu.Item key="alipay">
-          <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-            Navigation Four - Link
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+            3rd menu item
           </a>
         </Menu.Item>
       </Menu>
-    )
+    );
+    return (
+      <Row>
+        <Col span={12}>
+        <Menu onClick={handleClick} selectedKeys={current} mode="horizontal" >
+            <Menu.Item key="login" icon={ null }>
+              로그인
+            </Menu.Item>
+            <Menu.Item key="register" icon={ null }>
+              회원가입
+            </Menu.Item>
+            <Menu.Item key="todolist" icon={ null }>
+              TodoList
+            </Menu.Item>
+          </Menu>
+        </Col>
+          <Col span={12}>
+            <Username style={{marginTop: "11px", marginRight: "20px",maxWidth: "150px", textAlign: "center"}}>남승철</Username>
+            <Dropdown overlay={menu} placement="bottomLeft" arrow>
+              <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
+            </Dropdown>
+          </Col>
+      </Row>
+       );
 }
 
-
-const Wrapper = styled.div`
-
+const styles = {
+  textAlign: "center",
+ 
+}
+const Username = styled.div`
+  float: right;
+  margin-right: 60px;
+  font-weight: bold;
 `
 export default Nav;
