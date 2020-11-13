@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from "styled-components"
-import Nav from 'component/NavBar/Navbar';
+import Wrapper from 'component/Wrapper/Wrapper'
 import 'antd/dist/antd.css'
 const Home = () => {
     return (
-        <Wrapper>
-            <Nav/>
-        </Wrapper>
+        <div>
+            홈페이지
+        </div>
     )
 }
-const Wrapper = styled.div`
 
-`
 export default Home;
