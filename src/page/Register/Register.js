@@ -2,12 +2,12 @@ import React from 'react';
 import styled from "styled-components"
 import Wrapper from 'component/Wrapper/Wrapper'
 import 'antd/dist/antd.css'
-const Home = () => {
+const Register = () => {
     return (
         <div>
-            홈페이지
+            회원가입
         </div>
     )
 }
 
-export default Home;
+export default Register;
