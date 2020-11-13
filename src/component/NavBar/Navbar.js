@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
-import { Menu, Avatar, Col, Row, Dropdown } from 'antd';
+import { Menu, Avatar, Col, Row, Dropdown, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 const Nav = () => {
@@ -17,53 +17,40 @@ const Nav = () => {
     const { current } = state;
 
     const menu = (
-      <Menu>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-            1st menu item
-          </a>
+      <Menu style={{minWidth: "100px"}}>
+        <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
+         프로필 이름
         </Menu.Item>
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-            2nd menu item
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-            3rd menu item
+            로그아웃
           </a>
         </Menu.Item>
       </Menu>
     );
     return (
-      <Row>
-        <Col span={12}>
-        <Menu onClick={handleClick} selectedKeys={current} mode="horizontal" >
-            <Menu.Item key="login" icon={ null }>
-              로그인
-            </Menu.Item>
-            <Menu.Item key="register" icon={ null }>
-              회원가입
-            </Menu.Item>
-            <Menu.Item key="todolist" icon={ null }>
-              TodoList
-            </Menu.Item>
-          </Menu>
-        </Col>
-          <Col span={12}>
-            <Username style={{marginTop: "11px", marginRight: "20px",maxWidth: "150px", textAlign: "center"}}>남승철</Username>
-            <Dropdown overlay={menu} placement="bottomLeft" arrow>
-              <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
-            </Dropdown>
-          </Col>
-      </Row>
+        <div style={{width: "100%"}} >
+            <Menu onClick={handleClick} selectedKeys={current} mode="horizontal" style={{width: "100%", margin:"0 auto"}}>
+                <Menu.Item key="login" icon={ null }>
+                  로그인
+                </Menu.Item>
+                <Menu.Item key="register" icon={ null }>
+                  회원가입
+                </Menu.Item>
+                <Menu.Item key="todolist" icon={ null }>
+                  TodoList
+                </Menu.Item>
+                <Button type="" shape="circle" style={{marginLeft: "10px"}}>
+                  H
+                </Button>     
+                <Dropdown overlay={menu} placement="bottomLeft" arrow>
+                  <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
+                </Dropdown>
+            </Menu>
+            </div>
        );
 }
 
-const styles = {
-  textAlign: "center",
- 
-}
 const Username = styled.div`
   float: right;
   margin-right: 60px;
