@@ -13,7 +13,7 @@ const Nav = ({ history }) => {
     const handleClick = e => {
       console.log(e.key)
       setState({ current: e.key });
-      if(e.key === 'Home') {
+      if(e.key === undefined) {
         history.push('/');
       }
       else {
@@ -36,21 +36,21 @@ const Nav = ({ history }) => {
     );
     return (
         <div style={{width: "100%"}} >
-            <Menu onClick={handleClick} selectedKeys={current} mode="horizontal" style={{width: "100%", margin:"0 auto"}}>
-                <Menu.Item key="login" icon={ null }>
+            <Menu selectedKeys={current} mode="horizontal" style={{width: "100%", margin:"0 auto"}}>
+                <Menu.Item key="login" icon={ null } onClick={handleClick}>
                   로그인
                 </Menu.Item>
-                <Menu.Item key="register" icon={ null }>
+                <Menu.Item key="register" icon={ null } onClick={handleClick}>
                   회원가입
                 </Menu.Item>
-                <Menu.Item key="todolist" icon={ null }>
+                <Menu.Item key="todolist" icon={ null } onClick={handleClick}>
                   TodoList
                 </Menu.Item>
-                <Menu.Item key="Home" icon={ null }>
-                  <Button type="" shape="circle" style={{marginLeft: "10px"}}>
-                    H
-                  </Button>    
-                </Menu.Item> 
+               
+                <Button key="Home"onClick={handleClick} type="" shape="circle" style={{marginLeft: "10px"}}>
+                  H
+                </Button>    
+     
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
                   <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
                 </Dropdown>
