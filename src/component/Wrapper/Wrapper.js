@@ -1,10 +1,10 @@
 import React from 'react';
 import Nav from 'component/NavBar/Navbar'
-const Wrapper = ()=> {
+const Wrapper = ({ history })=> {
     
     return(
         <div>
-            <Nav />
+            <Nav history={ history }/>
         </div>
     );
 };

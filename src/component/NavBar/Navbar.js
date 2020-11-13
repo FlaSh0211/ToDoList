@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Menu, Avatar, Col, Row, Dropdown, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-const Nav = () => {
+const Nav = ({ history }) => {
  
     const [state, setState] = useState({
       current: null,
@@ -13,6 +13,12 @@ const Nav = () => {
     const handleClick = e => {
       console.log(e.key)
       setState({ current: e.key });
+      if(e.key === 'Home') {
+        history.push('/');
+      }
+      else {
+        history.push(`/${e.key}`);
+      }
     };
     const { current } = state;
 
@@ -40,9 +46,11 @@ const Nav = () => {
                 <Menu.Item key="todolist" icon={ null }>
                   TodoList
                 </Menu.Item>
-                <Button type="" shape="circle" style={{marginLeft: "10px"}}>
-                  H
-                </Button>     
+                <Menu.Item key="Home" icon={ null }>
+                  <Button type="" shape="circle" style={{marginLeft: "10px"}}>
+                    H
+                  </Button>    
+                </Menu.Item> 
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
                   <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
                 </Dropdown>
