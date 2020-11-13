@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import styled from "styled-components"
-import { Menu, Avatar, Col, Row, Dropdown, Button } from 'antd';
+import { Menu, Avatar, Dropdown, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 const Nav = ({ history }) => {
@@ -8,7 +7,6 @@ const Nav = ({ history }) => {
     const [state, setState] = useState({
       current: null,
     }); 
-    // const [userName, setUserName] = useState(null) ;
 
     const handleClick = e => {
       console.log(e.key)
@@ -46,22 +44,15 @@ const Nav = ({ history }) => {
                 <Menu.Item key="todolist" icon={ null } onClick={handleClick}>
                   TodoList
                 </Menu.Item>
-               
                 <Button key="Home"onClick={handleClick} type="" shape="circle" style={{marginLeft: "10px"}}>
                   H
                 </Button>    
-     
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
                   <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
                 </Dropdown>
             </Menu>
-            </div>
+        </div>
        );
 }
 
-const Username = styled.div`
-  float: right;
-  margin-right: 60px;
-  font-weight: bold;
-`
 export default Nav;

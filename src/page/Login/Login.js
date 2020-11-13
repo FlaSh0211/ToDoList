@@ -10,7 +10,6 @@ const layout = {
     wrapperCol: { offset: 8, span: 16 },
   };
   
-
 const onFinish = values => {
     console.log('Success:', values);
 };
@@ -21,7 +20,6 @@ const onFinishFailed = errorInfo => {
 
 const Login = () => {
     return (
-       
         <div style={{display: 'flex', margin: "5%",  padding:"5px", overflow: "hidden"}}>
             <Form style={{width: "80em",marginLeft: "10%"}}
                 {...layout}
@@ -57,7 +55,7 @@ const Login = () => {
                 </Form.Item>
             </Form>
         </div>
-        )
-    }
+    )
+}
 
 export default Login;
