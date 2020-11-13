@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, useHistory } from 'react-router-dom';
-import Home from 'page/Home/Home';
-import Login from 'page/Login/Login';
-import Register from 'page/Register/Register';
-import Todolist from 'page/Todolist/Todolist'
-import Wrapper from 'component/Wrapper/Wrapper';
+import Home from 'pages/Home/Home';
+import Login from 'pages/Login/Login';
+import Register from 'pages/Register/Register';
+import Todolist from 'pages/Todolist/Todolist'
+import Wrapper from 'components/Wrapper/Wrapper';
 
 const App = ()=> {
     let history = useHistory();

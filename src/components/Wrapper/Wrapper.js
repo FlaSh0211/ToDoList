@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from 'component/NavBar/Navbar'
+import Nav from 'components/NavBar/Navbar'
 const Wrapper = ({ history })=> {
     
     return(

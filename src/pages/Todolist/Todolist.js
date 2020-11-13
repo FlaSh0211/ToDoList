@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components"
-import Wrapper from 'component/Wrapper/Wrapper'
+import Wrapper from 'components/Wrapper/Wrapper'
 import 'antd/dist/antd.css'
 const Todolist = () => {
     return (
