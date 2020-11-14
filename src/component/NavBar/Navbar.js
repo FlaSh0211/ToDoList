@@ -21,7 +21,7 @@ const Nav = ({ history }) => {
     const { current } = state;
 
     const menu = (
-      <Menu style={{minWidth: "100px"}}>
+      <Menu >
         <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
          프로필 이름
         </Menu.Item>
@@ -33,8 +33,8 @@ const Nav = ({ history }) => {
       </Menu>
     );
     return (
-        <div style={{width: "100%"}} >
-            <Menu selectedKeys={current} mode="horizontal" style={{width: "100%", margin:"0 auto"}}>
+        <div >
+            <Menu selectedKeys={current} mode="horizontal">
                 <Menu.Item key="login" icon={ null } onClick={handleClick}>
                   로그인
                 </Menu.Item>
@@ -48,7 +48,7 @@ const Nav = ({ history }) => {
                   H
                 </Button>    
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
-                  <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} />
+                    <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} /> 
                 </Dropdown>
             </Menu>
         </div>
