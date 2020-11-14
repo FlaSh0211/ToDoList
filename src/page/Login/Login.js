@@ -59,7 +59,7 @@ const Login = () => {
         </Col>
         <Col md={{span: 8, offset: 8}}>
             <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button">
+                <Button type="primary" htmlType="submit" className="login-form-button" style={{marginRight: "10px"}}>
                 Log in
                 </Button>
                 Or <a href="">register now!</a>
