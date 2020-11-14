@@ -1,61 +1,72 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
-import 'antd/dist/antd.css'
 
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-  
-const onFinish = values => {
-    console.log('Success:', values);
-};
-  
-const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-};
+import { Form, Input, Button, Checkbox, Col } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Login = () => {
-    return (
-        <div style={{display: 'flex', margin: "5%",  padding:"5px", overflow: "hidden"}}>
-            <Form style={{width: "80em",marginLeft: "10%"}}
-                {...layout}
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                >
-                <Form.Item style={{justifyContent:"center", textAlign:"center"}}
-                    label="Username"
-                    name="username"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
-                >
-                    <Input />
-                </Form.Item>
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
-                >
-                    <Input.Password/>
+  return (
+    <Form
+      name="normal_login"
+      className="login-form"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+    >
+        <Col md={{span: 8, offset: 8}} style={{marginTop: "20px"}}>
+            <Form.Item 
+            name="username"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your Username!',
+            },
+            ]}
+        >
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        </Form.Item>
+        </Col>
+        <Col md={{span: 8, offset: 8}}>
+            <Form.Item
+            name="password"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your Password!',
+            },
+            ]}
+        >
+            <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+            />
+        </Form.Item>
+        </Col>
+        <Col md={{span: 8, offset: 8}}>
+            <Form.Item>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
                 </Form.Item>
-
-                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
-    )
-}
+                <a className="login-form-forgot" href="">
+                    Forgot password
+                </a>
+            </Form.Item>
+        </Col>
+        <Col md={{span: 8, offset: 8}}>
+            <Form.Item>
+                <Button type="primary" htmlType="submit" className="login-form-button">
+                Log in
+                </Button>
+                Or <a href="">register now!</a>
+            </Form.Item>
+        </Col>
+    </Form>
+  );
+};
 
 export default Login;

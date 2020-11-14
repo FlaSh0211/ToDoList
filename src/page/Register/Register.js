@@ -1,12 +1,9 @@
-import React from 'react';
-import styled from "styled-components"
-import Wrapper from 'component/Wrapper/Wrapper'
-import 'antd/dist/antd.css'
-const Register = () => {
+import React, { useState } from 'react';
+import 'antd/dist/antd.css';
+import RegisterForm from 'component/Form/Form';
+const Register = ()=>{
     return (
-        <div>
-            회원가입
-        </div>
+      <RegisterForm />
     )
 }
 
