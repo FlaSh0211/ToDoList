@@ -3,7 +3,6 @@ import { Route, useHistory } from 'react-router-dom';
 import Home from 'page/Home/Home';
 import Login from 'page/Login/Login';
 import Register from 'page/Register/Register';
-import Todolist from 'page/Todo/Todolist'
 import Wrapper from 'component/Wrapper/Wrapper';
 import Todo from 'page/Todo';
 

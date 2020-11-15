@@ -23,7 +23,7 @@ const Nav = ({ history }) => {
     const menu = (
       <Menu >
         <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
-         프로필 이름
+            프로필 이름
         </Menu.Item>
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">

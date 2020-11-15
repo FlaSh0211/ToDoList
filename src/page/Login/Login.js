@@ -17,9 +17,9 @@ const handleClick = ()=> {
       initialValues={{
         remember: true,
       }}
-      onFinish={onFinish}
+      onFinish={ onFinish }
     >
-        <Col md={{span: 8, offset: 8}} style={{marginTop: "20px"}}>
+        <Col md={{span: 8, offset: 8}} style={{marginTop: "80px"}}>
             <Form.Item 
             name="username"
             rules={[
@@ -64,7 +64,7 @@ const handleClick = ()=> {
                 <Button type="primary" htmlType="submit" className="login-form-button" style={{marginRight: "10px"}}>
                 Log in
                 </Button>
-                Or <a onClick={handleClick}>register now!</a>
+                Or <a onClick={ handleClick }>&nbsp;register now!</a>
             </Form.Item>
         </Col>
     </Form>

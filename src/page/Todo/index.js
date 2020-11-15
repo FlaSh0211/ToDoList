@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Detail from './Detail';
-import Todolist from './Todolist';
+import Detail from './container/Detail';
+import Todolist from './container/Todolist';
 
 const Todo = ()=> {
     return (
