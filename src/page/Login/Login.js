@@ -3,11 +3,13 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const Login = () => {
+const Login = ({ history }) => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
-
+const handleClick = ()=> {
+    history.push('/register')
+}
   return (
     <Form
       name="normal_login"
@@ -62,7 +64,7 @@ const Login = () => {
                 <Button type="primary" htmlType="submit" className="login-form-button" style={{marginRight: "10px"}}>
                 Log in
                 </Button>
-                Or <a href="">register now!</a>
+                Or <a onClick={handleClick}>register now!</a>
             </Form.Item>
         </Col>
     </Form>

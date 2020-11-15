@@ -38,9 +38,6 @@ const Nav = ({ history }) => {
                 <Menu.Item key="login" icon={ null } onClick={handleClick}>
                   로그인
                 </Menu.Item>
-                <Menu.Item key="register" icon={ null } onClick={handleClick}>
-                  회원가입
-                </Menu.Item>
                 <Menu.Item key="todolist" icon={ null } onClick={handleClick}>
                   TodoList
                 </Menu.Item>
