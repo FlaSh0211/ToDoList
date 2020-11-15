@@ -1,36 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components"
 import 'antd/dist/antd.css'
 import { List, message, Avatar, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 
 const Todolist = () => {
-    const initialstate = {
+    const [state, setState] = useState({
         data: [],
         loading: false,
         hasMore: true,
-      };
+      });
 
     const handleInfiniteOnLoad = () => {
         let { data } = this.state;
-        this.setState({
+        setState({
           loading: true,
         });
         if (data.length > 14) {
           message.warning('Infinite List loaded all');
-          this.setState({
+          setState({
             hasMore: false,
             loading: false,
           });
           return;
         }
-        this.fetchData(res => {
-          data = data.concat(res.results);
-          this.setState({
-            data,
-            loading: false,
-          });
-        });
+        // fetchData(res => {
+        //   data = data.concat(res.results);
+        //   this.setState({
+        //     data,
+        //     loading: false,
+        //   });
+        // });
       };
 
     return (
@@ -38,12 +38,12 @@ const Todolist = () => {
             <InfiniteScroll
             initialLoad={false}
             pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
-            hasMore={!this.state.loading && this.state.hasMore}
+            loadMore={handleInfiniteOnLoad}
+            hasMore={!state.loading && state.hasMore}
             useWindow={false}
             >
             <List
-                dataSource={this.state.data}
+                dataSource={state.data}
                 renderItem={item => (
                 <List.Item key={item.id}>
                     <List.Item.Meta
@@ -57,7 +57,7 @@ const Todolist = () => {
                 </List.Item>
                 )}
             >
-                {this.state.loading && this.state.hasMore && (
+                {state.loading && state.hasMore && (
                 <div className="demo-loading-container">
                     <Spin />
                 </div>
