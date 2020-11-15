@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components"
 import 'antd/dist/antd.css'
 import { List, message, Avatar, Spin } from 'antd';
-import  from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const Todolist = () => {
     const initialstate = {
