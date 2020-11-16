@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, Avatar, Dropdown, Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 
 const Nav = ({ history }) => {
  
