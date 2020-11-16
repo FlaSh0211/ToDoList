@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import 'antd/dist/antd.css'
 import { Collapse, Col, Button, Card, DatePicker, Row, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined } from '@ant-design/icons';
 
-const { Meta } = Card;
 const { Panel } = Collapse;
 const { TextArea } = Input;
 
@@ -24,27 +23,33 @@ const data = [
         id: 2,
         content: "투두리스트2",
         date: "2020-11-17"
+    },
+    {
+        id: 3,
+        content: "투두리스트3",
+        date: "2020-11-17"
     }
 ]
 const Todolist = ()=> {
-    const text = `
-        A dog is a type of domesticated animal.
-        Known for its loyalty and faithfulness,
-        it can be found as a welcome guest in many households across the world.
-        `;
     const [state, setState] = useState("");
     const [stateEdit, setEdit] = useState([]);
     const [listData, setListData] = useState(data);
     const [changeContent, setContent] = useState();
-    const [createList, setCreate] = useState([{
-        id: 3,
-        content: '투두리스트3'
-    }])
+    const [dateRender, setDateRender] = useState([]); 
     // const onTextChange = (e, id) => {
     //     setContent({...listData, id: content: e.target.value)};
     // }
-    const onDelPannel = id => {
-        setListData(listData.filter(data => data.date !== id))
+    useEffect(()=> {
+        uniqueDate();
+     },[])
+
+    const uniqueDate = ()=> {
+        let newDateTime = [... new Set(listData.map(data=>data.date))];
+        setDateRender(dateRender.concat(newDateTime));
+    }
+    const onDelPannel = date => {
+        setListData(listData.filter(data=> data.date !== date))
+        setDateRender(dateRender.filter(data=> data !== date))
     }
     const onCreate = ()=> {
 
@@ -93,10 +98,10 @@ const Todolist = ()=> {
             </Row>
             <Col md={{span: 16, offset: 4}} style={{marginTop:"20px"}}>
                 <Collapse accordion>
-                    {listData.map(list=>
-                        <Panel header={list.date} key={list.date} extra={genExtra(list.date)}>
+                    {dateRender.map(unqdate=>
+                        <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)} >
                         <div>
-                            {listData.map(data => data.date === list.date ?
+                            {listData.map(data => data.date === unqdate ?
                                 <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px" }}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
