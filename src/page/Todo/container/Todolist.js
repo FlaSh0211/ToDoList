@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
 import 'antd/dist/antd.css'
-import { Collapse, Col, Button, Card, DatePicker, Space, Row } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Collapse, Col, Button, Card, DatePicker, Row, Input } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 const { Panel } = Collapse;
+const { TextArea } = Input;
 
 const Whattodo = styled.div `
 `;
@@ -13,27 +14,69 @@ const EditButton = styled.div `
     justifyContent: center;
     textAlign: center;
 `;
-const Todolist = () => {
+const data = [
+    {
+        id: 1,
+        content: "투두리스트1",
+        date: "2020-11-16"
+    },
+    {
+        id: 2,
+        content: "투두리스트2",
+        date: "2020-11-17"
+    }
+]
+const Todolist = ()=> {
     const text = `
         A dog is a type of domesticated animal.
         Known for its loyalty and faithfulness,
         it can be found as a welcome guest in many households across the world.
         `;
-    const [state, setState] = useState();
+    const [state, setState] = useState("");
+    const [stateEdit, setEdit] = useState([]);
+    const [listData, setListData] = useState(data);
+    const [changeContent, setContent] = useState();
+    const [createList, setCreate] = useState([{
+        id: 3,
+        content: '투두리스트3'
+    }])
+    // const onTextChange = (e, id) => {
+    //     setContent({...listData, id: content: e.target.value)};
+    // }
+    const onDelPannel = id => {
+        setListData(listData.filter(data => data.date !== id))
+    }
+    const onCreate = ()=> {
 
-    function onChange(date, dateString) {
+    }
+    const onChange = (date, dateString)=> {
         setState(dateString);
         console.log(date, dateString);
     }
-    const genExtra = () => (
+
+    const clickOnEdit = id => {
+        if(stateEdit.find(element=> element === id)){
+            setEdit(stateEdit.filter(stateEdit => stateEdit !== id))
+        }
+        else{
+            setEdit(stateEdit.concat([id]))
+        }
+        console.log(stateEdit)
+    }
+
+    const clickOnDel = id=> {
+        setListData(listData.filter(data => data.id !== id))
+    }
+    const genExtra = (date)=> (
         <>
             <Button type="link">
-                <DeleteOutlined style={{color: "gray"}}/>
+                <DeleteOutlined style={{color: "gray"}} onClick= {()=>onDelPannel(date)}/>
             </Button>
         </>
     );
-    const createDayTodo = e=>{
-        const day = state;
+    const createDayTodo = ()=> {
+        let day="";
+        day = state;
         console.log(day)
     }
     return (
@@ -50,41 +93,48 @@ const Todolist = () => {
             </Row>
             <Col md={{span: 16, offset: 4}} style={{marginTop:"20px"}}>
                 <Collapse accordion>
-                    <Panel header="2020.11.16" key="1" extra={genExtra()} >
-                        <Card style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px" }}>
-                            <div style={{display: 'flex'}}>
-                                <Whattodo>
-                                백앤드 작업하기 백앤드 작업하기 백앤드 작업하기 백앤드 작업하기 백앤드 작업하기 백앤드 작업하기 
-                                </Whattodo>
-                                <EditButton>
-                                    <Button type="link">
-                                        <EditOutlined style={{color: "gray"}}/>
-                                    </Button>
-                                </EditButton>
-                            </div>
-                        </Card>
-                        <Card style={{ width: 300, marginTop: 16 }} style={{width: "80%", margin: "0 auto", marginTop: "10px"}}>
-                            <Meta
-                                title="오버워치 하기"
-                            />
-                        </Card>
-                        <Card style={{ width: 300, marginTop: 16 }} style={{width: "80%", margin: "0 auto", marginTop: "10px"}}>
-                            <Meta
-                                title="토익 공부"
-                            />
-                        </Card>
-                    </Panel>
+                    {listData.map(list=>
+                        <Panel header={list.date} key={list.date} extra={genExtra(list.date)}>
+                        <div>
+                            {listData.map(data => data.date === list.date ?
+                                <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px" }}>
+                                    <div style={{display: 'flex', justifyContent: "space-between"}}>
+                                        <Whattodo style={{width: "100%"}}>
+                                            {stateEdit.find(element=> element === data.id)?
+                                                <TextArea showCount maxLength={100} value= {data.content} />:
+                                                data.content
+                                            }
+                                        </Whattodo>
+                                        <div style={{margin: "auto 0"}}>
+                                            { stateEdit.find(element=> element === data.id) ? 
+                                            <EditButton style={{margin: "auto 0", marginLeft: "auto"}}>
+                                                <Button type="link" onClick={() =>clickOnEdit(data.id)}>
+                                                    <CheckOutlined />
+                                                </Button>
+                                            </EditButton>
+                                            :
+                                            <EditButton style={{margin: "auto 0", marginLeft: "auto"}}>
+                                                <Button type="link" onClick={() =>clickOnEdit(data.id)}>
+                                                    <EditOutlined style={{color: "green"}}/>
+                                                </Button>
+                                            </EditButton>
+                                            }
+                                            <EditButton style={{margin: "auto 0"}}>
+                                                <Button type="link"  onClick={()=>clickOnDel(data.id)}>
+                                                    <DeleteOutlined style={{color: "red"}}/>
+                                                </Button>
+                                            </EditButton>
+                                        </div>
+                                    </div>
+                                </Card>: null
+                            )}
+                        </div>
+                    </Panel>)
+                    }
 
-                    <Panel header="2020.11.17" key="2" extra={genExtra()}>
-                    <p>{text}</p>
-                    </Panel>
-
-                    <Panel header="2020.11.18" key="3" extra={genExtra()}>
-                    <p>{text}</p>
-                    </Panel>
                 </Collapse>
             </Col>
-      </div>
+        </div>
     )
 }
 
