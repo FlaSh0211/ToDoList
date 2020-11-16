@@ -35,10 +35,9 @@ const Todolist = ()=> {
     const [stateEdit, setEdit] = useState([]);
     const [listData, setListData] = useState(data);
     const [changeContent, setContent] = useState();
-    const [dateRender, setDateRender] = useState([]); 
-    // const onTextChange = (e, id) => {
-    //     setContent({...listData, id: content: e.target.value)};
-    // }
+    const [dateRender, setDateRender] = useState([]);
+    const [input, setInput]  = useState([{id:""}]);
+
     useEffect(()=> {
         uniqueDate();
      },[])
@@ -82,8 +81,12 @@ const Todolist = ()=> {
     const createDayTodo = ()=> {
         let day="";
         day = state;
-        console.log(day)
     }
+    const onChangeValue = (e,id)=> {
+        setInput({...input, [id]: e.target.value});
+        console.log(input,"input")
+    }
+
     return (
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
             <Row>
@@ -106,7 +109,7 @@ const Todolist = ()=> {
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
                                             {stateEdit.find(element=> element === data.id)?
-                                                <TextArea showCount maxLength={100} value= {data.content} />:
+                                                <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: data.content} onChange={(e)=>onChangeValue(e,data.id)} />:
                                                 data.content
                                             }
                                         </Whattodo>
