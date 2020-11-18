@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { Collapse, Col, Button, Card, DatePicker, Input } from 'antd';
+import { Collapse, Col, Button, Card, DatePicker, Input, Empty } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -155,9 +155,10 @@ const Todolist = ()=> {
         console.log(value)
         setContent(value);
     }
+    console.log(dateRender,"dfgdg")
     return (
+
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
-            
             <Col md={{span: 20, offset: 4}}>
                 <DatePicker onChange={datePick} onClick={clickDatePicker}/>
             </Col>
@@ -174,7 +175,8 @@ const Todolist = ()=> {
                     </div>: null
                 }
                 <Collapse accordion>
-                    {dateRender.map(unqdate=>
+                    {dateRender.length !== 0? 
+                        dateRender.map(unqdate=>
                         <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)} style={{}}>
                         <div style={{maxHeight: "300px", overflow: 'auto'}}> 
                             {listData.map(data => data.date === unqdate ?
@@ -211,7 +213,7 @@ const Todolist = ()=> {
                             }
                         </div>
                         </Panel>)
-                    }
+                    :<Empty />}
                 </Collapse>
             </Col>
         </div>
