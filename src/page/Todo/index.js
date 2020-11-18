@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Detail from './container/Detail';
 import Todolist from './container/Todolist';
 
-const Todo = ()=> {
+const TodoComponent = ()=> {
     return (
         <>
             <Route exact path="/todolist" component= { Todolist } />
@@ -12,4 +12,4 @@ const Todo = ()=> {
     )
 }
 
-export default Todo;
+export default TodoComponent;
