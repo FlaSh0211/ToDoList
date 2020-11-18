@@ -89,6 +89,9 @@ const Todolist = ()=> {
         if(day === "") {
             alert("날짜를 선택해 주세요!")
         }
+        if(listContent === ""){
+            alert("내용을 입력해 주세요!")
+        }
         // 백엔드로 axios 요청 후 다시 받아 렌더링
         else {
             const sendData = {
