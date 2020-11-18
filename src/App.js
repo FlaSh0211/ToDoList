@@ -1,20 +1,20 @@
 import React from 'react';
 import { Route, useHistory } from 'react-router-dom';
-import Home from 'page/Home/Home';
+import HomeComponent from 'page/Home';
 import Login from 'page/Login/Login';
 import Register from 'page/Register/Register';
 import Wrapper from 'component/Wrapper/Wrapper';
-import Todo from 'page/Todo';
+import TodoComponent from 'page/Todo';
 
 const App = ()=> {
     let history = useHistory();
     return (
         <>
             <Wrapper history = { history }/>
-            <Route exact path="/" component= { Home }/>
+            <Route exact path="/" component= { HomeComponent }/>
             <Route path="/login" component= { Login } />
             <Route path="/register" component= { Register } />
-            <Route path="/todolist" component= { Todo } />
+            <Route path="/todolist" component= { TodoComponent } />
         </>
     );
 }

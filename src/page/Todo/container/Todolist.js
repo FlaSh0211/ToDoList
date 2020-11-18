@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { Collapse, Col, Button, Card, DatePicker, Input, Empty } from 'antd';
+import { Collapse, Col, Button, Card, DatePicker, Input, Empty, Pagination } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -73,7 +73,6 @@ const Todolist = ()=> {
     const datePick = (date, dateString)=> {
         setState(dateString);
         setList(true)
-        console.log(dateString);
     }
     const uniqueDate = ()=> {
         // 백엔드에서 날짜 내림차순 정렬 후 데이터를 보내줘야 한다
@@ -99,7 +98,6 @@ const Todolist = ()=> {
                 content: listContent,
                 type: 'success'
             }
-            setList(false);
             setContent("");
             console.log(sendData)
          }
@@ -129,7 +127,6 @@ const Todolist = ()=> {
         // axios 요청
     }
     const clickDatePicker = ()=> {
-        console.log("ssss")
         if(datePicks === true){
             setDatePick(false);
             setList(false);
@@ -155,10 +152,12 @@ const Todolist = ()=> {
     }
     const onChangeAdd = e=> {
         let value = e.target.value;
-        console.log(value)
         setContent(value);
     }
-    console.log(dateRender,"dfgdg")
+    const onChangePage= pageNumber => {
+        console.log('Page: ', pageNumber);
+    }
+
     return (
 
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
@@ -218,6 +217,9 @@ const Todolist = ()=> {
                         </Panel>)
                     :<div><Empty /></div>}
                 </Collapse>
+            </Col>
+            <Col md={{span: 15, offset:5}} lg={{span: 18, offset:6}} sm={{span: 20, offset:2}} xs={{span: 18, offset: 4}} style={{marginTop: "20px"}}>
+                <Pagination showQuickJumper defaultCurrent={2} total={500} onChange={onChangePage} />
             </Col>
         </div>
     )

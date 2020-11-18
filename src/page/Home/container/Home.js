@@ -35,7 +35,7 @@ const Home = () => {
 
     useEffect(()=>{
         newData();
-    },[demo])
+    },[])
 
     function getListData(value) { 
         let year, month, date;
