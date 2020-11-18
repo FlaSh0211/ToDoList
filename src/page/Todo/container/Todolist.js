@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styled from "styled-components"
-import 'antd/dist/antd.css'
+import styled from "styled-components";
 import { Collapse, Col, Button, Card, DatePicker, Row, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
 
 const { Panel } = Collapse;
 const { TextArea } = Input;
@@ -31,70 +31,79 @@ const data = [
     }
 ]
 const Todolist = ()=> {
-    const [state, setState] = useState("");
+    const [state, setState] = useState();
     const [stateEdit, setEdit] = useState([]);
     const [listData, setListData] = useState(data);
-    const [changeContent, setContent] = useState();
     const [dateRender, setDateRender] = useState([]);
-    const [input, setInput]  = useState([{id:""}]);
+    const [input, setInput]  = useState([]);
 
     useEffect(()=> {
         uniqueDate();
      },[])
 
+    const datePick = (date, dateString)=> {
+        setState(dateString);
+        console.log(date, dateString);
+    }
     const uniqueDate = ()=> {
         let newDateTime = [... new Set(listData.map(data=>data.date))];
         setDateRender(dateRender.concat(newDateTime));
     }
-    const onDelPannel = date => {
-        setListData(listData.filter(data=> data.date !== date))
-        setDateRender(dateRender.filter(data=> data !== date))
+    const deleteDay = date => {
+        setListData(listData.filter(data=> data.date !== date));
+        setDateRender(dateRender.filter(data=> data !== date));
     }
-    const onCreate = ()=> {
-
+    const createDay = ()=> {
+        let day="";
+        day = state;
+        // 생성 코드
     }
-    const onChange = (date, dateString)=> {
-        setState(dateString);
-        console.log(date, dateString);
+    const createList = ()=> {
+        // 생성코드
     }
-
-    const clickOnEdit = id => {
-        if(stateEdit.find(element=> element === id)){
-            setEdit(stateEdit.filter(stateEdit => stateEdit !== id))
-        }
-        else{
-            setEdit(stateEdit.concat([id]))
-        }
+    const clickOnEdit = (id, content) => {
+        let inputVal;
         console.log(stateEdit)
+        if(stateEdit.find(el=> el === id)){
+            setEdit(stateEdit.filter(stateEdit => stateEdit !== id));
+            for(let el in input) {
+                if(Number(el) === id) {
+                    inputVal = input[id];
+                }
+            }
+            setListData(
+                listData.map(el => el.id === id ? ({ ...el, content: inputVal }): el)
+            );
+            delete input[id];
+        } 
+        else{
+            setEdit(stateEdit.concat([id]));
+            setInput({...input, [id]: content});
+        }
     }
-
-    const clickOnDel = id=> {
-        setListData(listData.filter(data => data.id !== id))
+    const deleteList = id=> {
+        setListData(listData.filter(data => data.id !== id));
     }
     const genExtra = (date)=> (
         <>
             <Button type="link">
-                <DeleteOutlined style={{color: "gray"}} onClick= {()=>onDelPannel(date)}/>
+                <DeleteOutlined style={{color: "gray"}} onClick= {()=>deleteDay(date)}/>
             </Button>
         </>
     );
-    const createDayTodo = ()=> {
-        let day="";
-        day = state;
-    }
     const onChangeValue = (e,id)=> {
         setInput({...input, [id]: e.target.value});
-        console.log(input,"input")
+        console.log(input,"input");
     }
 
     return (
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
             <Row>
                 <Col md={{span: 4, offset: 15}}>
-                    <DatePicker onChange={onChange} style={{width:"100%"}} />
+                    <DatePicker onChange={datePick} style={{width:"100%"}} />
                 </Col>
                 <Col md={{span: 2}} style={{marginLeft:"5px"}}>
-                    <Button onClick={createDayTodo}>
+                    <Button onClick={createDay}>
                         <PlusOutlined />
                     </Button>
                 </Col>
@@ -109,26 +118,26 @@ const Todolist = ()=> {
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
                                             {stateEdit.find(element=> element === data.id)?
-                                                <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: data.content} onChange={(e)=>onChangeValue(e,data.id)} />:
+                                                <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: null} onChange={(e)=>onChangeValue(e,data.id)} />:
                                                 data.content
                                             }
                                         </Whattodo>
                                         <div style={{margin: "auto 0"}}>
-                                            { stateEdit.find(element=> element === data.id) ? 
+                                            { stateEdit.find(id=> id === data.id) ? 
                                             <EditButton style={{margin: "auto 0", marginLeft: "auto"}}>
-                                                <Button type="link" onClick={() =>clickOnEdit(data.id)}>
+                                                <Button type="link" onClick={() =>clickOnEdit(data.id, data.content)}>
                                                     <CheckOutlined />
                                                 </Button>
                                             </EditButton>
                                             :
                                             <EditButton style={{margin: "auto 0", marginLeft: "auto"}}>
-                                                <Button type="link" onClick={() =>clickOnEdit(data.id)}>
+                                                <Button type="link" onClick={() =>clickOnEdit(data.id, data.content)}>
                                                     <EditOutlined style={{color: "green"}}/>
                                                 </Button>
                                             </EditButton>
                                             }
                                             <EditButton style={{margin: "auto 0"}}>
-                                                <Button type="link"  onClick={()=>clickOnDel(data.id)}>
+                                                <Button type="link"  onClick={()=>deleteList(data.id)}>
                                                     <DeleteOutlined style={{color: "red"}}/>
                                                 </Button>
                                             </EditButton>
@@ -137,7 +146,7 @@ const Todolist = ()=> {
                                 </Card>: null
                             )}
                         </div>
-                    </Panel>)
+                        </Panel>)
                     }
 
                 </Collapse>
