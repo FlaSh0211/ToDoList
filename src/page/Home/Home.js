@@ -1,15 +1,42 @@
-import React from 'react';
-import 'antd/dist/antd.css'
+import React, { useEffect } from 'react';
 import { Calendar, Badge } from 'antd';
+import 'antd/dist/antd.css'
 
 
 const Home = () => {
+  let dd = []
+  useEffect(()=>{
+    const datas = [
+      {
+          id: 1,
+          content: "투두리스트1",
+          date: "2020-11-16"
+      },
+      {
+          id: 2,
+          content: "투두리스트2",
+          date: "2020-11-17"
+      },
+      {
+          id: 3,
+          content: "투두리스트3",
+          date: "2020-11-17"
+      }
+    ]
+
+  // for(let el in datas) {
+  //   dd.concat([datas[el]['date'], datas[el]]);
+  // }
+  dd.concat(1);
+  },[])
+  console.log(dd,"dfdf")
     function getListData(value) {   
         const data = [
-            [2020,11,16,{ type: 'warning', content: '토익' }],
+            [2020,11,16,{ type: 'warning', content: '토익'}],
             [2020,11,16,{ type: 'success', content: '컴퓨터교재연구지도법 과제' }],
-            [2020,11,4,{ type: 'error', content: '이러닝 출석' }]
+            [2021,11,4,{ type: 'error', content: '이러닝 출석' }]
         ];
+        let dd = []
         let listData=[];
         for (let v = 0; v < data.length; v++){
             if(value.year() === Number(data[v][0])){
@@ -20,7 +47,7 @@ const Home = () => {
                 }
             }
         }
-        return listData || [];
+        return listData;
   }
 
   function dateCellRender(value) {

@@ -22,14 +22,34 @@ const data = [
     {
         id: 2,
         content: "투두리스트2",
-        date: "2020-11-17"
+        date: "2020-11-16"
     },
     {
         id: 3,
         content: "투두리스트3",
-        date: "2020-11-17"
+        date: "2020-11-16"
+    },
+    {
+        id: 4,
+        content: "투두리스트4",
+        date: "2020-11-16"
+    },
+    {
+        id: 5,
+        content: "투두리스트5",
+        date: "2020-11-19"
+    },
+    {
+        id:6,
+        content: "투두리스트6",
+        date: "2020-11-16"
+    },
+    {
+        id: 7,
+        content: "투두리스트7",
+        date: "2020-11-16"
     }
-]
+];
 const Todolist = ()=> {
     const [state, setState] = useState();
     const [stateEdit, setEdit] = useState([]);
@@ -112,9 +132,9 @@ const Todolist = ()=> {
                 <Collapse accordion>
                     {dateRender.map(unqdate=>
                         <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)} >
-                        <div>
+                        <div style={{maxHeight: "300px", overflow: 'auto'}}> 
                             {listData.map(data => data.date === unqdate ?
-                                <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px" }}>
+                                <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
                                             {stateEdit.find(element=> element === data.id)?
