@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { Collapse, Col, Button, Card, DatePicker, Row, Input } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 const { Panel } = Collapse;
@@ -13,7 +13,7 @@ const EditButton = styled.div `
     justifyContent: center;
     textAlign: center;
 `;
-const data = [
+const demo = [
     {
         id: 1,
         content: "투두리스트1",
@@ -59,9 +59,11 @@ const data = [
 const Todolist = ()=> {
     const [state, setState] = useState();
     const [stateEdit, setEdit] = useState([]);
-    const [listData, setListData] = useState(data);
+    const [listData, setListData] = useState(demo);
     const [dateRender, setDateRender] = useState([]);
     const [input, setInput]  = useState([]);
+    const [addList, setList] = useState(false);
+    const [listContent, setContent] = useState("");
 
     useEffect(()=> {
         uniqueDate();
@@ -69,7 +71,7 @@ const Todolist = ()=> {
 
     const datePick = (date, dateString)=> {
         setState(dateString);
-        console.log(date, dateString);
+        console.log(dateString);
     }
     const uniqueDate = ()=> {
         // 백엔드에서 날짜 내림차순 정렬 후 데이터를 보내줘야 한다
@@ -80,13 +82,16 @@ const Todolist = ()=> {
         setListData(listData.filter(data=> data.date !== date));
         setDateRender(dateRender.filter(data=> data !== date));
     }
-    const createDay = ()=> {
-        let day="";
-        day = state;
-        // 생성 코드
-    }
     const createList = ()=> {
-        // 생성코드
+        let day = state;
+        setList(true)
+        // 생성 코드
+        const sendData = {
+            date: day,
+            content: listContent,
+            type: 'success'
+        }
+        console.log(sendData)
     }
     const clickOnEdit = (id, content) => {
         let inputVal;
@@ -110,40 +115,63 @@ const Todolist = ()=> {
     const deleteList = id=> {
         setListData(listData.filter(data => data.id !== id));
     }
-    const genExtra = (date)=> (
-        <>
-            <Button type="link">
-                <DeleteOutlined style={{color: "gray"}} onClick= {()=>deleteDay(date)}/>
-            </Button>
-        </>
+    const genExtra = date => (
+        <div style={{display: "flex"}}>
+            <div>
+                <Button type="link">
+                    <PlusOutlined style={{color: "gray"}} onClick= {()=>createList(date)}/>
+                </Button>
+                <Button type="link">
+                    <DeleteOutlined style={{color: "gray"}} onClick= {()=>deleteDay(date)}/>
+                </Button>
+            </div>
+        </div>
     );
-    const onChangeValue = (e,id)=> {
+    const onChangeEdit = (e,id)=> {
         setInput({...input, [id]: e.target.value});
     }
-
+    const createDisable = ()=> {
+        setList(false);
+        setContent("");
+    }
+    const onChangeAdd = e=> {
+        let value = e.target.value;
+        console.log(value)
+        setContent(value);
+    }
     return (
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
-            <Row>
-                <Col md={{span: 4, offset: 15}}>
-                    <DatePicker onChange={datePick} style={{width:"100%"}} />
-                </Col>
-                <Col md={{span: 2}} style={{marginLeft:"5px"}}>
-                    <Button onClick={createDay}>
-                        <PlusOutlined />
-                    </Button>
-                </Col>
-            </Row>
+            
+            <Col md={{span: 20, offset: 4}}>
+                <DatePicker onChange={datePick} style={{}} />
+                <Button onClick={createList}>
+                    <PlusOutlined />
+                </Button>
+            </Col>
+            <div>
+            </div>
             <Col md={{span: 16, offset: 4}} style={{marginTop:"20px"}}>
+                {addList ?
+                    <div style={{display: "flex"}}>
+                        <Input placeholder="TodoList를 입력하세요 !!" bordered={false} style={{marginBottom: '10px'}} onChange={onChangeAdd} value={listContent}/>
+                        <Button type="link" style={{color: "gray"}} onClick={createList}>
+                            <PlusOutlined />
+                        </Button>
+                        <Button type="link" style={{color: "gray"}} onClick={createDisable}>
+                            <MinusOutlined />
+                        </Button>
+                    </div>: null
+                }
                 <Collapse accordion>
                     {dateRender.map(unqdate=>
-                        <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)} >
+                        <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)} style={{}}>
                         <div style={{maxHeight: "300px", overflow: 'auto'}}> 
                             {listData.map(data => data.date === unqdate ?
                                 <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
                                             {stateEdit.find(element=> element === data.id)?
-                                                <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: null} onChange={(e)=>onChangeValue(e,data.id)} />:
+                                                <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: null} onChange={(e)=>onChangeEdit(e,data.id)} />:
                                                 data.content
                                             }
                                         </Whattodo>
