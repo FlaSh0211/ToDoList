@@ -77,7 +77,6 @@ const Todolist = ()=> {
     }
     const uniqueDate = ()=> {
         // 백엔드에서 날짜 내림차순 정렬 후 데이터를 보내줘야 한다
-        console.log(listData,'asdasd')
         let newDateTime = [... new Set(listData.map(data=>data.date))];
         setDateRender(dateRender.concat(newDateTime));
     }
