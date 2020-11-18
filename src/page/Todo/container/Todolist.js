@@ -177,7 +177,7 @@ const Todolist = ()=> {
                         <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)} style={{}}>
                         <div style={{maxHeight: "300px", overflow: 'auto'}}> 
                             {listData.map(data => data.date === unqdate ?
-                                <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px"}}>
+                                <Card id = {data.id} style={{margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
                                             {stateEdit.find(ele=> ele === data.id)?

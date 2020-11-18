@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Form,
-  Input,
-  Tooltip,
-  Select,
-  Checkbox,
-  Button,
-} from 'antd';
+import { Form, Input, Tooltip, Select, Button } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 const { Option } = Select;
 const formItemLayout = {
@@ -20,7 +13,6 @@ const formItemLayout = {
     md: {
         span: 8
     },
-
   },
   wrapperCol: {
     xs: {
@@ -53,7 +45,6 @@ const RegisterForm = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
-
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select

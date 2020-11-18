@@ -3,11 +3,9 @@ import { Menu, Avatar, Dropdown, Button } from 'antd';
 import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 
 const Nav = ({ history }) => {
- 
     const [state, setState] = useState({
       current: null,
     }); 
-
     const handleClick = e => {
       console.log(e.key)
       setState({ current: e.key });
@@ -22,7 +20,6 @@ const Nav = ({ history }) => {
         
     }
     const { current } = state;
-
     const menu = (
       <Menu >
         <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
@@ -42,7 +39,7 @@ const Nav = ({ history }) => {
                 <Menu.Item key="todolist" icon={ null } onClick={handleClick}>
                   TodoList
                 </Menu.Item>
-                <Button key="Home"onClick={handleClick} type="" shape="circle" style={{marginLeft: "10px"}}>
+                <Button key="Home"onClick={handleClick} shape="circle" style={{marginLeft: "10px"}}>
                   <HomeOutlined />
                 </Button>    
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
