@@ -22,32 +22,38 @@ const data = [
     {
         id: 2,
         content: "투두리스트2",
-        date: "2020-11-16"
+        date: "2020-11-16",
+        type: 'success',
     },
     {
         id: 3,
         content: "투두리스트3",
-        date: "2020-11-16"
+        date: "2020-11-16",
+        type: 'success',
     },
     {
         id: 4,
         content: "투두리스트4",
-        date: "2020-11-16"
+        date: "2020-11-19",
+        type: 'success',
     },
     {
         id: 5,
         content: "투두리스트5",
-        date: "2020-11-19"
+        date: "2020-11-15",
+        type: 'success',
     },
     {
         id:6,
         content: "투두리스트6",
-        date: "2020-11-16"
+        date: "2020-11-16",
+        type: 'success',
     },
     {
         id: 7,
         content: "투두리스트7",
-        date: "2020-11-16"
+        date: "2020-11-16",
+        type: 'success',
     }
 ];
 const Todolist = ()=> {
@@ -66,6 +72,7 @@ const Todolist = ()=> {
         console.log(date, dateString);
     }
     const uniqueDate = ()=> {
+        // 백엔드에서 날짜 내림차순 정렬 후 데이터를 보내줘야 한다
         let newDateTime = [... new Set(listData.map(data=>data.date))];
         setDateRender(dateRender.concat(newDateTime));
     }
@@ -83,7 +90,6 @@ const Todolist = ()=> {
     }
     const clickOnEdit = (id, content) => {
         let inputVal;
-        console.log(stateEdit)
         if(stateEdit.find(el=> el === id)){
             setEdit(stateEdit.filter(stateEdit => stateEdit !== id));
             for(let el in input) {
@@ -113,7 +119,6 @@ const Todolist = ()=> {
     );
     const onChangeValue = (e,id)=> {
         setInput({...input, [id]: e.target.value});
-        console.log(input,"input");
     }
 
     return (
