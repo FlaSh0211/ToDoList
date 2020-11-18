@@ -138,9 +138,6 @@ const Todolist = ()=> {
         <div style={{display: "flex"}}>
             <div>
                 <Button type="link">
-                    <PlusOutlined style={{color: "gray"}} onClick= {()=>createList(date)}/>
-                </Button>
-                <Button type="link">
                     <DeleteOutlined style={{color: "gray"}} onClick= {()=>deleteDay(date)}/>
                 </Button>
             </div>
