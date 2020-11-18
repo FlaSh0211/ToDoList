@@ -2,14 +2,13 @@ import React from 'react';
 
 import { Form, Input, Button, Checkbox, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const Login = ({ history }) => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
-const handleClick = ()=> {
-    history.push('/register')
-}
+  
   return (
     <Form
       name="normal_login"
@@ -54,17 +53,18 @@ const handleClick = ()=> {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>Remember me</Checkbox>
                 </Form.Item>
-                <a className="login-form-forgot" href="">
+                {/* 링크에 url을 삽입*/}
+                <Link to=''>
                     Forgot password
-                </a>
-            </Form.Item>
+                </Link>
+                </Form.Item>
         </Col>
         <Col md={{span: 8, offset: 8}}>
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="login-form-button" style={{marginRight: "10px"}}>
                 Log in
                 </Button>
-                Or <a onClick={ handleClick }>&nbsp;register now!</a>
+                Or <Link to='/register'>&nbsp;register now!</Link>
             </Form.Item>
         </Col>
     </Form>

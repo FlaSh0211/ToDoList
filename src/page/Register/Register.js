@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import RegisterForm from 'component/Form/Form';
 
