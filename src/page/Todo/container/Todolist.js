@@ -70,7 +70,7 @@ const Todolist = ()=> {
         uniqueDate();
      },[])
 
-    const datePick = (dateString)=> {
+    const datePick = (date, dateString)=> {
         setState(dateString);
         setList(true)
     }
@@ -106,7 +106,7 @@ const Todolist = ()=> {
                 type: 'success'
             }
             setContent("");
-            console.log(sendData)
+            console.log(sendData,' 생성')
             notification.open({
                 message: '항목을 새로 생성했습니다',
                 style: {
