@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { Collapse, Col, Button, Card, DatePicker, Row, Input } from 'antd';
+import { Collapse, Col, Button, Card, DatePicker, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -64,6 +64,7 @@ const Todolist = ()=> {
     const [input, setInput]  = useState([]);
     const [addList, setList] = useState(false);
     const [listContent, setContent] = useState("");
+    const [datePicks, setDatePick] = useState(false);
 
     useEffect(()=> {
         uniqueDate();
@@ -71,6 +72,7 @@ const Todolist = ()=> {
 
     const datePick = (date, dateString)=> {
         setState(dateString);
+        setList(true)
         console.log(dateString);
     }
     const uniqueDate = ()=> {
@@ -84,14 +86,18 @@ const Todolist = ()=> {
     }
     const createList = ()=> {
         let day = state;
-        setList(true)
-        // 생성 코드
-        const sendData = {
-            date: day,
-            content: listContent,
-            type: 'success'
+        if(day === "") {
+            alert("날짜를 선택해 주세요!")
         }
-        console.log(sendData)
+        // 백엔드로 axios 요청 후 다시 받아 렌더링
+        else {
+            const sendData = {
+                date: day,
+                content: listContent,
+                type: 'success'
+            }
+            console.log(sendData)
+         }
     }
     const clickOnEdit = (id, content) => {
         let inputVal;
@@ -114,6 +120,15 @@ const Todolist = ()=> {
     }
     const deleteList = id=> {
         setListData(listData.filter(data => data.id !== id));
+    }
+    const clickDatePicker = ()=> {
+        console.log("ssss")
+        if(datePicks === true){
+            setDatePick(false);
+            setList(false);
+            setContent("");
+        }
+        setDatePick(true);
     }
     const genExtra = date => (
         <div style={{display: "flex"}}>
@@ -143,13 +158,8 @@ const Todolist = ()=> {
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
             
             <Col md={{span: 20, offset: 4}}>
-                <DatePicker onChange={datePick} style={{}} />
-                <Button onClick={createList}>
-                    <PlusOutlined />
-                </Button>
+                <DatePicker onChange={datePick} onClick={clickDatePicker}/>
             </Col>
-            <div>
-            </div>
             <Col md={{span: 16, offset: 4}} style={{marginTop:"20px"}}>
                 {addList ?
                     <div style={{display: "flex"}}>
@@ -170,7 +180,7 @@ const Todolist = ()=> {
                                 <Card id = {data.id} style={{ width: 300, marginTop: 16, width: "80%", margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
-                                            {stateEdit.find(element=> element === data.id)?
+                                            {stateEdit.find(ele=> ele === data.id)?
                                                 <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: null} onChange={(e)=>onChangeEdit(e,data.id)} />:
                                                 data.content
                                             }
@@ -196,12 +206,11 @@ const Todolist = ()=> {
                                             </EditButton>
                                         </div>
                                     </div>
-                                </Card>: null
-                            )}
+                                </Card>: null)
+                            }
                         </div>
                         </Panel>)
                     }
-
                 </Collapse>
             </Col>
         </div>

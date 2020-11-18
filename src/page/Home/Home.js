@@ -35,12 +35,11 @@ const Home = () => {
 
     useEffect(()=>{
         newData();
-    },[])
+    },[demo])
 
     function getListData(value) { 
         let year, month, date;
         let listData=[];
-        console.log(datas,"asdasd")
         for (let v = 0; v < datas.length; v++){
             year = new Date(datas[v][0]).getFullYear();
             month = new Date(datas[v][0]).getMonth();

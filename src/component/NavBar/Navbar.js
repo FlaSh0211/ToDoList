@@ -18,6 +18,9 @@ const Nav = ({ history }) => {
         history.push(`/${e.key}`);
       }
     };
+    const logOut = ()=> {
+        
+    }
     const { current } = state;
 
     const menu = (
@@ -25,10 +28,8 @@ const Nav = ({ history }) => {
         <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
             프로필 이름
         </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+        <Menu.Item onClick={logOut}>
             로그아웃
-          </a>
         </Menu.Item>
       </Menu>
     );

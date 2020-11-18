@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -66,20 +66,7 @@ const RegisterForm = () => {
       </Select>
     </Form.Item>
   );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
   return (
     <Form style={{marginTop: "80px"}}
       {...formItemLayout}
@@ -108,7 +95,6 @@ const RegisterForm = () => {
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         name="password"
         label="Password"
@@ -122,7 +108,6 @@ const RegisterForm = () => {
       >
         <Input.Password />
       </Form.Item>
-
       <Form.Item
         name="confirm"
         label="Confirm Password"
@@ -138,7 +123,6 @@ const RegisterForm = () => {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-
               return Promise.reject('The two passwords that you entered do not match!');
             },
           }),
@@ -146,7 +130,6 @@ const RegisterForm = () => {
       >
         <Input.Password />
       </Form.Item>
-
       <Form.Item
         name="nickname"
         label={
@@ -167,7 +150,6 @@ const RegisterForm = () => {
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         name="phone"
         label="Phone Number"
@@ -184,22 +166,6 @@ const RegisterForm = () => {
             width: '100%',
           }}
         />
-      </Form.Item>
-
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject('Should accept agreement'),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
