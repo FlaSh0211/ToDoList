@@ -1,49 +1,38 @@
 import React from 'react';
-import styled from "styled-components"
-import Wrapper from 'component/Wrapper/Wrapper'
 import 'antd/dist/antd.css'
 import { Calendar, Badge } from 'antd';
-function getListData(value) {
-    let listData;
-    switch (value.date()) {
-      case 8:
-        listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
+
+
+const Home = () => {
+    function getListData(value) {   
+        const data = [
+            [2020,11,16,{ type: 'warning', content: '토익' }],
+            [2020,11,16,{ type: 'success', content: '컴퓨터교재연구지도법 과제' }],
+            [2020,11,4,{ type: 'error', content: '이러닝 출석' }]
         ];
-        break;
-      case 10:
-        listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
-          { type: 'error', content: 'This is error event.' },
-        ];
-        break;
-      case 15:
-        listData = [
-          { type: 'warning', content: 'This is warning event' },
-          { type: 'success', content: 'This is very long usual event。。....' },
-          { type: 'error', content: 'This is error event 1.' },
-          { type: 'error', content: 'This is error event 2.' },
-          { type: 'error', content: 'This is error event 3.' },
-          { type: 'error', content: 'This is error event 4.' },
-        ];
-        break;
-      default:
-    }
-    return listData || [];
+        let listData=[];
+        for (let v = 0; v < data.length; v++){
+            if(value.year() === Number(data[v][0])){
+                if(value.month() === Number(data[v][1])-1) {
+                    if(value.date() === Number(data[v][2])){
+                        listData = listData.concat(data[v][3])
+                    }
+                }
+            }
+        }
+        return listData || [];
   }
 
   function dateCellRender(value) {
     const listData = getListData(value);
     return (
-      <ul className="events">
-        {listData.map(item => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
-          </li>
-        ))}
-      </ul>
+        <ul className="events">
+            {listData.map(item => (
+                <li key={item.content} style={{listStyle: "none"}}>
+                <Badge status={item.type} text={item.content} />
+                </li>
+            ))}
+        </ul>
     );
   }
   
@@ -62,7 +51,6 @@ function getListData(value) {
       </div>
     ) : null;
   }
-const Home = () => {
     return (
         <div style={{margin:"20px"}}>
             <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />

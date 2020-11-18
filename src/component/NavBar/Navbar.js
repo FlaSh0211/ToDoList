@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, Avatar, Dropdown, Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 
 const Nav = ({ history }) => {
  
@@ -42,7 +42,7 @@ const Nav = ({ history }) => {
                   TodoList
                 </Menu.Item>
                 <Button key="Home"onClick={handleClick} type="" shape="circle" style={{marginLeft: "10px"}}>
-                  H
+                  <HomeOutlined />
                 </Button>    
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
                     <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} /> 
