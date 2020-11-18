@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { Collapse, Col, Button, Card, DatePicker, Input, Empty } from 'antd';
+import { Collapse, Col, Button, Card, DatePicker, Input, Empty, Pagination } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -154,6 +154,9 @@ const Todolist = ()=> {
         let value = e.target.value;
         setContent(value);
     }
+    const onChangePage= pageNumber => {
+        console.log('Page: ', pageNumber);
+    }
 
     return (
 
@@ -214,6 +217,9 @@ const Todolist = ()=> {
                         </Panel>)
                     :<div><Empty /></div>}
                 </Collapse>
+            </Col>
+            <Col md={{span: 15, offset:5}} lg={{span: 18, offset:6}} sm={{span: 20, offset:2}} xs={{span: 18, offset: 4}} style={{marginTop: "20px"}}>
+                <Pagination showQuickJumper defaultCurrent={2} total={500} onChange={onChangePage} />
             </Col>
         </div>
     )
