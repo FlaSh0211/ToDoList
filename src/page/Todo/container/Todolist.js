@@ -96,6 +96,8 @@ const Todolist = ()=> {
                 content: listContent,
                 type: 'success'
             }
+            setList(false);
+            setContent("");
             console.log(sendData)
          }
     }
@@ -112,6 +114,7 @@ const Todolist = ()=> {
                 listData.map(el => el.id === id ? ({ ...el, content: inputVal }): el)
             );
             delete input[id];
+            // axios 요청
         } 
         else{
             setEdit(stateEdit.concat([id]));
@@ -120,6 +123,7 @@ const Todolist = ()=> {
     }
     const deleteList = id=> {
         setListData(listData.filter(data => data.id !== id));
+        // axios 요청
     }
     const clickDatePicker = ()=> {
         console.log("ssss")
