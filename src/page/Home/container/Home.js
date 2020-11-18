@@ -70,17 +70,29 @@ const Home = () => {
     }
   
     function getMonthData(value) {
-        if (value.month() === 8) {
-        return 1394;
+        let year;
+        let month;
+        let listData=[];
+        for (let v = 0; v < datas.length; v++){
+            year = new Date(datas[v][0]).getFullYear();
+            month = new Date(datas[v][0]).getMonth();
+            if(value.year() === year){
+                if(value.month() === month){
+                    listData = listData.concat(datas[v][1]);
+                }
+            }
         }
+        return listData;
     }
   
     function monthCellRender(value) {
-        const num = getMonthData(value);
-        return num ? (
+        const listData = getMonthData(value);
+        return listData ? (
             <div className="notes-month">
-                <section>{num}</section>
-                <span>Backlog number</span>
+                {listData.map(item => (<li key={item.content} style={{listStyle: "none"}}>
+                    <Badge status={item.type} text={item.content} />
+                    </li>
+                ))}
             </div>
         ) : null;
     }
