@@ -210,7 +210,7 @@ const Todolist = ()=> {
                                                 </Button>
                                             </EditButton>
                                         </div>
-                                    </div>
+                                     </div>
                                 </Card>: null)
                             }
                         </div>
@@ -218,8 +218,10 @@ const Todolist = ()=> {
                     :<div><Empty /></div>}
                 </Collapse>
             </Col>
-            <Col md={{span: 15, offset:5}} lg={{span: 18, offset:6}} sm={{span: 20, offset:2}} xs={{span: 18, offset: 4}} style={{marginTop: "20px"}}>
-                <Pagination showQuickJumper defaultCurrent={2} total={500} onChange={onChangePage} />
+            <Col md={{span: 16, offset:4}} lg={{span: 10, offset:8}} sm={{span: 20, offset:2}} xs={{span: 18, offset: 3}} style={{marginTop: "20px"}}>
+                <div style={{ minWidth: "250px", margin: "0 auto"}}>
+                    <Pagination showQuickJumper defaultCurrent={2} total={500} onChange={onChangePage} style={{ margin: "0 auto"}}/>
+                </div>
             </Col>
         </div>
     )
