@@ -1,56 +1,90 @@
-import React from 'react';
-import 'antd/dist/antd.css'
+import React, { useEffect, useState } from 'react';
 import { Calendar, Badge } from 'antd';
+import 'antd/dist/antd.css'
 
+const demo = [
+    {
+        id: 1,
+        content: "투두리스트1",
+        date: "2020-11-16",
+        type: 'success'
+    },
+    {
+        id: 2,
+        content: "투두리스트2",
+        date: "2020-11-17",
+        type: 'success'
+    },
+    {
+        id: 3,
+        content: "투두리스트3",
+        date: "2020-11-17",
+        type: 'success'
+    }
+]
 
 const Home = () => {
-    function getListData(value) {   
-        const data = [
-            [2020,11,16,{ type: 'warning', content: '토익' }],
-            [2020,11,16,{ type: 'success', content: '컴퓨터교재연구지도법 과제' }],
-            [2020,11,4,{ type: 'error', content: '이러닝 출석' }]
-        ];
+    const [datas,setData] = useState([]);
+    const newData = ()=> {
+        let array = [];
+        for(let el in demo) {
+            array.push([demo[el]['date'],demo[el]]);
+        } 
+        setData(datas.concat(array));
+    }
+
+    useEffect(()=>{
+        newData();
+    },[])
+
+    function getListData(value) { 
+        let year, month, date;
         let listData=[];
-        for (let v = 0; v < data.length; v++){
-            if(value.year() === Number(data[v][0])){
-                if(value.month() === Number(data[v][1])-1) {
-                    if(value.date() === Number(data[v][2])){
-                        listData = listData.concat(data[v][3])
+        console.log(datas,"asdasd")
+        for (let v = 0; v < datas.length; v++){
+            year = new Date(datas[v][0]).getFullYear();
+            month = new Date(datas[v][0]).getMonth();
+            date = new Date(datas[v][0]).getDate();
+            
+            if(value.year() === year){
+                if(value.month() === month) {
+                    if(value.date() === date) {
+                        listData = listData.concat(datas[v][1])
                     }
                 }
             }
         }
-        return listData || [];
-  }
-
-  function dateCellRender(value) {
-    const listData = getListData(value);
-    return (
-        <ul className="events">
-            {listData.map(item => (
-                <li key={item.content} style={{listStyle: "none"}}>
-                <Badge status={item.type} text={item.content} />
-                </li>
-            ))}
-        </ul>
-    );
-  }
-  
-  function getMonthData(value) {
-    if (value.month() === 8) {
-      return 1394;
+        return listData;
     }
-  }
+
+    function dateCellRender(value) {
+        const listData = getListData(value);
+        return (
+            <ul className="events">
+                {listData.map(item => (
+                    <li key={item.content} style={{listStyle: "none"}}>
+                    <Badge status={item.type} text={item.content} />
+                    </li>
+                ))}
+            </ul>
+        );
+    }
   
-  function monthCellRender(value) {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  }
+    function getMonthData(value) {
+        if (value.month() === 8) {
+        return 1394;
+        }
+    }
+  
+    function monthCellRender(value) {
+        const num = getMonthData(value);
+        return num ? (
+            <div className="notes-month">
+                <section>{num}</section>
+                <span>Backlog number</span>
+            </div>
+        ) : null;
+    }
     return (
         <div style={{margin:"20px"}}>
             <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
