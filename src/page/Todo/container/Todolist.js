@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { Collapse, Col, Button, Card, DatePicker, Input, Empty, Pagination } from 'antd';
+import { Collapse, Col, Button, Card, DatePicker, Input, Empty, Pagination, notification } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -70,7 +70,7 @@ const Todolist = ()=> {
         uniqueDate();
      },[])
 
-    const datePick = (date, dateString)=> {
+    const datePick = (dateString)=> {
         setState(dateString);
         setList(true)
     }
@@ -82,6 +82,13 @@ const Todolist = ()=> {
     const deleteDay = date => {
         setListData(listData.filter(data=> data.date !== date));
         setDateRender(dateRender.filter(data=> data !== date));
+        notification.open({
+            message: '삭제되었습니다',
+            style: {
+                width: 600,
+            },
+            duration: 1
+        });
     }
     const createList = ()=> {
         let day = state;
@@ -100,6 +107,13 @@ const Todolist = ()=> {
             }
             setContent("");
             console.log(sendData)
+            notification.open({
+                message: '항목을 새로 생성했습니다',
+                style: {
+                    width: 600,
+                },
+                duration: 1
+            });
          }
     }
     const clickOnEdit = (id, content) => {
@@ -116,6 +130,13 @@ const Todolist = ()=> {
             );
             delete input[id];
             // axios 요청
+            notification.open({
+                message: '수정되었습니다',
+                style: {
+                  width: 600,
+                },
+                duration: 1
+              });
         } 
         else{
             setEdit(stateEdit.concat([id]));
@@ -125,6 +146,13 @@ const Todolist = ()=> {
     const deleteList = id=> {
         setListData(listData.filter(data => data.id !== id));
         // axios 요청
+        notification.open({
+            message: '삭제되었습니다',
+            style: {
+                width: 600,
+            },
+            duration: 1
+        });
     }
     const clickDatePicker = ()=> {
         if(datePicks === true){
