@@ -73,7 +73,6 @@ const Todolist = ()=> {
     const datePick = (date, dateString)=> {
         setState(dateString);
         setList(true)
-        console.log(dateString);
     }
     const uniqueDate = ()=> {
         // 백엔드에서 날짜 내림차순 정렬 후 데이터를 보내줘야 한다
@@ -99,7 +98,6 @@ const Todolist = ()=> {
                 content: listContent,
                 type: 'success'
             }
-            setList(false);
             setContent("");
             console.log(sendData)
          }
@@ -129,7 +127,6 @@ const Todolist = ()=> {
         // axios 요청
     }
     const clickDatePicker = ()=> {
-        console.log("ssss")
         if(datePicks === true){
             setDatePick(false);
             setList(false);
@@ -155,10 +152,9 @@ const Todolist = ()=> {
     }
     const onChangeAdd = e=> {
         let value = e.target.value;
-        console.log(value)
         setContent(value);
     }
-    console.log(dateRender,"dfgdg")
+
     return (
 
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
