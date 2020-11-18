@@ -96,6 +96,8 @@ const Todolist = ()=> {
                 content: listContent,
                 type: 'success'
             }
+            setList(false);
+            setContent("");
             console.log(sendData)
          }
     }
