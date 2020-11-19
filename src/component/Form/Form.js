@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Form, Input, Tooltip, Select, Button } from 'antd';
+import React from 'react';
+import { Form, Input, Tooltip, Button } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-const { Option } = Select;
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -41,27 +40,15 @@ const tailFormItemLayout = {
 
 const RegisterForm = () => {
     const [form] = Form.useForm();
-    const [inputs, setInputs] = useState({
-        email: "",
-        password: "",
-        nickname: ""
-    });
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
-    const onChange = e => {
-        setInputs({...inputs, [e.target.name]: e.target.value})
-    }
-    const handleSubmit = e => {
-        e.preventDefault();
         let data = {
-            email: inputs.email,
-            password: inputs.password,
-            nickname: inputs.nickname
+            email: values.email,
+            password: values.password,
+            nickname: values.nickname
         };
+        // axios
         console.log(data,'데이터');
-
-    }
+    };
 
     return (
         <Form style={{marginTop: "80px"}}
@@ -74,7 +61,6 @@ const RegisterForm = () => {
             prefix: '86',
         }}
         scrollToFirstError
-        onSubmit = {handleSubmit}
         >
         <Form.Item
             name="email"
