@@ -2,34 +2,32 @@ import React, { useState } from 'react';
 import { Menu, Avatar, Dropdown, Button } from 'antd';
 import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 
-const Nav = ({ history }) => {
+const Nav = ({ history })=> {
     const [state, setState] = useState({
-      current: null,
-    }); 
+            current: null,
+        }); 
     const handleClick = e => {
-      console.log(e.key)
-      setState({ current: e.key });
-      if(e.key === undefined) {
-        history.push('/');
-      }
-      else {
+        console.log(e.key)
+        setState({ current: e.key });
         history.push(`/${e.key}`);
-      }
     };
+    const handleButtonClick = ()=> {
+        history.push(`/`);
+    }
     const logOut = ()=> {
-        
+            
     }
     const { current } = state;
     const menu = (
-      <Menu >
-        <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
-            프로필 이름
-        </Menu.Item>
-        <Menu.Item onClick={logOut}>
-            로그아웃
-        </Menu.Item>
-      </Menu>
-    );
+        <Menu >
+            <Menu.Item style={{minHeight: "20px", fontWeight:"bold"}}>
+                프로필 이름
+            </Menu.Item>
+            <Menu.Item onClick={logOut}>
+                로그아웃
+            </Menu.Item>
+        </Menu>
+        );
     return (
         <div >
             <Menu selectedKeys={current} mode="horizontal">
@@ -39,7 +37,7 @@ const Nav = ({ history }) => {
                 <Menu.Item key="todolist" icon={ null } onClick={handleClick}>
                   TodoList
                 </Menu.Item>
-                <Button key="Home"onClick={handleClick} shape="circle" style={{marginLeft: "10px"}}>
+                <Button key="Home" onClick={handleButtonClick} shape="circle" style={{marginLeft: "10px"}}>
                   <HomeOutlined />
                 </Button>    
                 <Dropdown overlay={menu} placement="bottomLeft" arrow>
@@ -47,7 +45,7 @@ const Nav = ({ history }) => {
                 </Dropdown>
             </Menu>
         </div>
-       );
+    );
 }
 
 export default Nav;
