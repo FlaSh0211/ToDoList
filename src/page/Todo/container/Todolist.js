@@ -72,6 +72,7 @@ const Todolist = ()=> {
      },[])
 
     const datePick = (date, dateString)=> {
+        // date는 사용된다 지우지 마시오
         setState(dateString);
         setList(true)
     }
