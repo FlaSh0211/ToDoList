@@ -208,10 +208,10 @@ const Todolist = ()=> {
                 <Collapse accordion>
                     {dateRender.length !== 0? 
                         dateRender.map(unqdate=>
-                        <Panel header={unqdate} key={unqdate} extra={genExtra(unqdate)}>
+                        <Panel key={unqdate} header={unqdate} key={unqdate} extra={genExtra(unqdate)}>
                         <div style={{maxHeight: "300px", overflow: 'auto'}}> 
                             {listData.map(data => data.date === unqdate ?
-                                <Card id = {data.id} style={{margin: "0 auto", marginTop: "10px"}}>
+                                <Card key={data.id} id = {data.id} style={{margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
                                             {stateEdit.find(ele=> ele === data.id)?

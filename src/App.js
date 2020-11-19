@@ -11,7 +11,7 @@ const App = ()=> {
     return (
         <>
             <Wrapper history = { history }/>
-            <Route exact path="/" component= { HomeComponent }/>
+            <Route path="/" component= { HomeComponent }/>
             <Route path="/login" component= { Login } />
             <Route path="/register" component= { Register } />
             <Route path="/todolist" component= { TodoComponent } />
