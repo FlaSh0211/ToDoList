@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Input, notification, Col } from 'antd';
+import React, { useState } from 'react';
+import { Button, Input, Col } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -25,6 +25,7 @@ const EditProfile = ({ history })=> {
                 let data = {
                     nickname: inputs.nickname
                 }
+                console.log(data)
                 // axios 요청
             }
         }
@@ -38,6 +39,7 @@ const EditProfile = ({ history })=> {
                 let data = {
                     password: inputs.password
                 }
+                console.log(data)
                 //axios
                 logOut();
             }

@@ -37,7 +37,7 @@ const Home = () => {
         newData();
     },[])
 
-    function getListData(value) { 
+    const getListData = value => { 
         let year, month, date;
         let listData=[];
         for (let v = 0; v < datas.length; v++){
@@ -56,7 +56,7 @@ const Home = () => {
         return listData;
     }
 
-    function dateCellRender(value) {
+    const dateCellRender = value => {
         const listData = getListData(value);
         return (
             <ul className="events">
@@ -69,7 +69,7 @@ const Home = () => {
         );
     }
   
-    function getMonthData(value) {
+    const getMonthData = value => {
         let year;
         let month;
         let listData=[];
@@ -85,7 +85,7 @@ const Home = () => {
         return listData;
     }
   
-    function monthCellRender(value) {
+    const monthCellRender = value => {
         const listData = getMonthData(value);
         return listData ? (
             <div className="notes-month">
