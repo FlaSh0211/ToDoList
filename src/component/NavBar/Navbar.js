@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Nav = ({ history }) => {
     const [state, setState] = useState({
             current: null,
-        }); 
+    }); 
     const handleClick = e => {
         console.log(e.key)
         setState({ current: e.key });
@@ -19,7 +19,7 @@ const Nav = ({ history }) => {
     };
     const logOut = ()=> {
             
-    }
+    };
     const { current } = state;
     const menu = (
         <Menu >
@@ -32,18 +32,19 @@ const Nav = ({ history }) => {
                 로그아웃
             </Menu.Item>
         </Menu>
-        );
+    );
+
     return (
-        <div >
+        <div>
             <Menu selectedKeys={current} mode="horizontal">
                 <Menu.Item key="login" icon={ null } onClick={handleClick}>
-                  로그인
+                    로그인
                 </Menu.Item>
                 <Menu.Item key="todolist" icon={ null } onClick={handleClick}>
-                  TodoList
+                    TodoList
                 </Menu.Item>
                 <Button key="Home"onClick={handleClick} shape="circle" style={{marginLeft: "10px"}}>
-                  <HomeOutlined />
+                    <HomeOutlined />
                 </Button>    
                 <Dropdown key="avater" overlay={menu} placement="bottomLeft" arrow>
                     <Avatar style={{ backgroundColor: '#87d068', float: 'right', marginTop: "8px", marginRight: "10px"}} icon={<UserOutlined />} /> 
@@ -51,6 +52,6 @@ const Nav = ({ history }) => {
             </Menu>
         </div>
     );
-}
+};
 
 export default Nav;

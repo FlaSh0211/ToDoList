@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Tooltip, Button } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -38,7 +39,7 @@ const tailFormItemLayout = {
   },
 };
 
-const RegisterForm = () => {
+const RegisterForm = ({ registerState, registerActions }) => {
     const [form] = Form.useForm();
     const onFinish = (values) => {
         let data = {
@@ -47,7 +48,8 @@ const RegisterForm = () => {
             nickname: values.nickname
         };
         // axios
-        console.log(data,'데이터');
+        registerActions.registerRequest(data);
+        console.log(registerState,'데이터');
     };
 
     return (

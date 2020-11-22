@@ -31,11 +31,11 @@ const Home = () => {
             array.push([demo[el]['date'],demo[el]]);
         } 
         setData(datas.concat(array));
-    }
+    };
 
-    useEffect(()=>{
+    useEffect(()=> {
         newData();
-    },[])
+    }, []);
 
     const getListData = value => { 
         let year, month, date;
@@ -49,12 +49,12 @@ const Home = () => {
                 if(value.month() === month) {
                     if(value.date() === date) {
                         listData = listData.concat(datas[v][1])
-                    }
-                }
-            }
-        }
+                    };
+                };
+            };
+        };
         return listData;
-    }
+    };
 
     const dateCellRender = value => {
         const listData = getListData(value);
@@ -63,8 +63,8 @@ const Home = () => {
                 {listData.map(item => (
                     <li key={item.content} style={{listStyle: "none"}}>
                     <Badge status={item.type} text={item.content} />
-                    </li>
-                ))}
+                    </li>))
+                }
             </ul>
         );
     }
@@ -79,11 +79,11 @@ const Home = () => {
             if(value.year() === year){
                 if(value.month() === month){
                     listData = listData.concat(datas[v][1]);
-                }
-            }
-        }
+                };
+            };
+        };
         return listData;
-    }
+    };
   
     const monthCellRender = value => {
         const listData = getMonthData(value);
@@ -91,16 +91,17 @@ const Home = () => {
             <div className="notes-month">
                 {listData.map(item => (<li key={item.content} style={{listStyle: "none"}}>
                     <Badge status={item.type} text={item.content} />
-                    </li>
-                ))}
+                    </li>))
+                }
             </div>
-        ) : null;
-    }
+            ) : null;
+    };
+
     return (
         <div style={{margin:"20px"}}>
             <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
         </div>
-    )
-}
+    );
+};
 
 export default Home;
