@@ -2,26 +2,24 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import * as loginCreators from 'redux/modules/reducers/login';
+import { connect } from 'react-redux';
 
-const Login = ({ history })=> {
-    const [inputs, setInputs] = useState({
-        username: '',
-        password: ''
-    });
-    const onChange = e => {
-        setInputs({...inputs, [e.target.name]: e.target.value})
-    }
+let demo = {
+    username: '',
+    password: ''
+}
+
+const Login = ({ history, state, loginState, loginActions })=> {
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
-    const handleSubmit = e => {
-        e.preventDefault();
         let data = {
-            username: inputs.username,
-            passsword: inputs.password
+            username: values.username,
+            password: values.password
         };
         console.log(data,'데이터')
         // axios 로 전송
+        loginActions.loginRequest(data);
     };
 
     return (
@@ -42,13 +40,12 @@ const Login = ({ history })=> {
                         message: 'Please input your Username!',
                     },
                 ]}
-                onSubmit={handleSubmit}
                 >
                     <Input 
                     name="username" 
                     prefix={<UserOutlined 
                     className="site-form-item-icon" />} 
-                    placeholder="Username" onChange={onChange} 
+                    placeholder="Username" 
                     />
                 </Form.Item>
             </Col>
@@ -67,7 +64,6 @@ const Login = ({ history })=> {
                     type="password"
                     placeholder="Password"
                     name="password"
-                    onChange={onChange}
                     />
                 </Form.Item>
             </Col>
@@ -99,4 +95,11 @@ const Login = ({ history })=> {
     );
 };
 
-export default Login;
+export default connect(
+    state => ({
+        loginState: state.loginReducer
+    }),
+    dispatch => ({
+        loginActions: bindActionCreators(loginCreators, dispatch)
+    })
+)(Login);

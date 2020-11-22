@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { Collapse, Col, Button, Card, DatePicker, Input, Empty, Pagination, notification } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import { bindActionCreators } from 'redux';
+import * as todoListCreators from 'redux/modules/reducers/todolist';
+import { connect } from 'react-redux';
 
 const { Panel } = Collapse;
 const { TextArea } = Input;
@@ -57,7 +60,7 @@ const demo = [
         type: 'success',
     }
 ];
-const Todolist = ()=> {
+const Todolist = ({ todoListState, todoListActions })=> {
     const [state, setState] = useState();
     const [stateEdit, setEdit] = useState([]);
     const [listData, setListData] = useState(demo);
@@ -103,6 +106,7 @@ const Todolist = ()=> {
         // 백엔드로 axios 요청 후 다시 받아 렌더링
         else {
             const sendData = {
+                author: '',
                 date: day,
                 content: listContent,
                 type: 'success'
@@ -257,4 +261,11 @@ const Todolist = ()=> {
     )
 }
 
-export default Todolist;
+export default connect(
+    state => ({
+        todoListState: state.todoListReducer
+    }),
+    dispatch => ({
+        todoListActions: bindActionCreators( todoListCreators, dispatch)
+    })
+)(Todolist);
