@@ -5,7 +5,7 @@ import Root from './Root';
 import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
-import rootReducer, { rootSaga } from 'redux/modules/reducers';
+import rootReducer, { rootSaga } from 'redux/modules/saga';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';

@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as loginCreators from 'redux/modules/reducers/login';
+import * as loginCreators from 'redux/modules/saga/login';
 import { connect } from 'react-redux';
 
 let demo = {

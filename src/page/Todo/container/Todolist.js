@@ -4,7 +4,7 @@ import { Collapse, Col, Button, Card, DatePicker, Input, Empty, Pagination, noti
 import { EditOutlined, DeleteOutlined, PlusOutlined, CheckOutlined, MinusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import { bindActionCreators } from 'redux';
-import * as todoListCreators from 'redux/modules/reducers/todolist';
+import * as todoListCreators from 'redux/modules/saga/todolist';
 import { connect } from 'react-redux';
 
 const { Panel } = Collapse;
@@ -29,6 +29,7 @@ const Todolist = ({ todoListState, todoListActions })=> {
     const demoData = todoListState.get('data');
 
     useEffect(()=> {
+        // username을 localstorage에서 get
         todoListActions.getTodoListRequest({ username:'nexus2493' });
      },[])
      
@@ -37,7 +38,6 @@ const Todolist = ({ todoListState, todoListActions })=> {
         setState(dateString);
         setList(true)
     }
-
     const deleteDay = date => {
         todoListActions.deleteDayTodoListRequest({ date });
         notification.open({
@@ -144,7 +144,6 @@ const Todolist = ({ todoListState, todoListActions })=> {
     }
 
     return (
-
         <div className="demo-infinite-container" style={{marginTop: '80px'}}> 
             <Col md={{span: 20, offset: 4}}>
                 <DatePicker onChange={datePick} onClick={clickDatePicker}/>

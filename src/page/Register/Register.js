@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import RegisterForm from 'component/Form/Form';
 import { connect } from 'react-redux';
-import * as registerCreators from 'redux/modules/reducers/register';
+import * as registerCreators from 'redux/modules/saga/register';
 import { bindActionCreators } from 'redux';
 
 const Register = ({ registerActions, registerState })=>{
