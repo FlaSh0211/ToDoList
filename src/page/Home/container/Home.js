@@ -1,46 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, Badge } from 'antd';
 import 'antd/dist/antd.css'
+import { bindActionCreators } from 'redux';
+import * as todoListCreators from 'redux/modules/saga/todolist';
+import { connect } from 'react-redux';
 
-const demo = [
-    {
-        id: 1,
-        content: "투두리스트1",
-        date: "2020-11-16",
-        type: 'success'
-    },
-    {
-        id: 2,
-        content: "투두리스트2",
-        date: "2020-11-17",
-        type: 'success'
-    },
-    {
-        id: 3,
-        content: "투두리스트3",
-        date: "2020-11-17",
-        type: 'success'
-    }
-]
+// const demo = [
+//     {
+//         id: 1,
+//         content: "투두리스트1",
+//         date: "2020-11-16",
+//         type: 'success'
+//     },
+//     {
+//         id: 2,
+//         content: "투두리스트2",
+//         date: "2020-11-17",
+//         type: 'success'
+//     },
+//     {
+//         id: 3,
+//         content: "투두리스트3",
+//         date: "2020-11-17",
+//         type: 'success'
+//     }
+// ]
 
-const Home = () => {
+const Home = ({ todoListState, todoListActions }) => {
     const [datas,setData] = useState([]);
-    const newData = ()=> {
-        let array = [];
-        for(let el in demo) {
-            array.push([demo[el]['date'],demo[el]]);
-        } 
-        setData(datas.concat(array));
-    };
+    
+    useEffect(()=> {
+        // username을 localstorage에서 get
+        todoListActions.getTodoListRequest({ username:'nexus2493' });
+     }, [])
 
     useEffect(()=> {
+        const newData = ()=> {
+            let demo = todoListState.get('data');
+            console.log(todoListState.get('data'),'데모')
+            let array = [];
+            for(let el in demo) {
+                array.push([demo[el]['date'],demo[el]]);
+            } 
+            setData(datas.concat(array));
+        };
         newData();
-    }, []);
+    }, [todoListState]);
 
     const getListData = value => { 
         let year, month, date;
         let listData=[];
-        for (let v = 0; v < datas.length; v++){
+        for (let v = 0; v < datas.length; v++) {
             year = new Date(datas[v][0]).getFullYear();
             month = new Date(datas[v][0]).getMonth();
             date = new Date(datas[v][0]).getDate();
@@ -55,7 +65,6 @@ const Home = () => {
         };
         return listData;
     };
-
     const dateCellRender = value => {
         const listData = getListData(value);
         return (
@@ -68,7 +77,6 @@ const Home = () => {
             </ul>
         );
     }
-  
     const getMonthData = value => {
         let year;
         let month;
@@ -84,7 +92,6 @@ const Home = () => {
         };
         return listData;
     };
-  
     const monthCellRender = value => {
         const listData = getMonthData(value);
         return listData ? (
@@ -104,4 +111,11 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default connect(
+    state => ({
+        todoListState: state.todolistReducer
+    }),
+    dispatch => ({
+        todoListActions: bindActionCreators( todoListCreators, dispatch)
+    })
+)(Home);
