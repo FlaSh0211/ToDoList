@@ -16,77 +16,30 @@ const EditButton = styled.div `
     justifyContent: center;
     textAlign: center;
 `;
-const demo = [
-    {
-        id: 1,
-        content: "투두리스트1",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 2,
-        content: "투두리스트2",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 3,
-        content: "투두리스트3",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 4,
-        content: "투두리스트4",
-        date: "2020-11-19",
-        type: 'success',
-    },
-    {
-        id: 5,
-        content: "투두리스트5",
-        date: "2020-11-15",
-        type: 'success',
-    },
-    {
-        id:6,
-        content: "투두리스트6",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 7,
-        content: "투두리스트7",
-        date: "2020-11-16",
-        type: 'success',
-    }
-];
+
 const Todolist = ({ todoListState, todoListActions })=> {
     const [state, setState] = useState();
     const [stateEdit, setEdit] = useState([]);
-    const [listData, setListData] = useState(demo);
-    const [dateRender, setDateRender] = useState([]);
     const [input, setInput]  = useState([]);
     const [addList, setList] = useState(false);
     const [listContent, setContent] = useState("");
     const [datePicks, setDatePick] = useState(false);
 
-    useEffect(()=> {
-        uniqueDate();
-     },[])
+    const dateData = todoListState.get('date');
+    const demoData = todoListState.get('data');
 
+    useEffect(()=> {
+        todoListActions.getTodoListRequest({ username:'nexus2493' });
+     },[])
+     
     const datePick = (date, dateString)=> {
         // date는 사용된다 지우지 마시오
         setState(dateString);
         setList(true)
     }
-    const uniqueDate = ()=> {
-        // 백엔드에서 날짜 내림차순 정렬 후 데이터를 보내줘야 한다
-        let newDateTime = [...new Set(listData.map(data=>data.date))];
-        setDateRender(dateRender.concat(newDateTime));
-    }
+
     const deleteDay = date => {
-        setListData(listData.filter(data=> data.date !== date));
-        setDateRender(dateRender.filter(data=> data !== date));
+        todoListActions.deleteDayTodoListRequest({ date });
         notification.open({
             message: '삭제되었습니다',
             style: {
@@ -131,11 +84,9 @@ const Todolist = ({ todoListState, todoListActions })=> {
                     inputVal = input[id];
                 }
             }
-            setListData(
-                listData.map(el => el.id === id ? ({ ...el, content: inputVal }): el)
-            );
-            delete input[id];
             // axios 요청
+            todoListActions.updateTodoListRequest( { id, content: input[id]});
+            delete input[id];
             notification.open({
                 message: '수정되었습니다',
                 style: {
@@ -150,8 +101,8 @@ const Todolist = ({ todoListState, todoListActions })=> {
         }
     }
     const deleteList = id=> {
-        setListData(listData.filter(data => data.id !== id));
         // axios 요청
+        todoListActions.deleteListTodoListRequest({ id })
         notification.open({
             message: '삭제되었습니다',
             style: {
@@ -211,11 +162,11 @@ const Todolist = ({ todoListState, todoListActions })=> {
                     </div>: null
                 }
                 <Collapse accordion>
-                    {dateRender.length !== 0? 
-                        dateRender.map(unqdate=>
+                    {dateData.length !== 0? 
+                        dateData.map(unqdate=>
                         <Panel key={unqdate} header={unqdate} key={unqdate} extra={genExtra(unqdate)}>
                         <div style={{maxHeight: "300px", overflow: 'auto'}}> 
-                            {listData.map(data => data.date === unqdate ?
+                            {demoData.map(data => data.date === unqdate ?
                                 <Card key={data.id} id = {data.id} style={{margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
@@ -263,7 +214,7 @@ const Todolist = ({ todoListState, todoListActions })=> {
 
 export default connect(
     state => ({
-        todoListState: state.todoListReducer
+        todoListState: state.todolistReducer
     }),
     dispatch => ({
         todoListActions: bindActionCreators( todoListCreators, dispatch)

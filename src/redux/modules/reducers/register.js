@@ -27,7 +27,7 @@ export function* localRegisterSaga(action) {
     }
 }
 export function* watchRegister() {
-    yield takeEvery(LOCAL_REGISTER, registerRequest);
+    yield takeEvery(LOCAL_REGISTER, localRegisterSaga);
 }
 
 export default function registerReducer(state = initialState, action) {
