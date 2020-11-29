@@ -32,7 +32,7 @@ export function* watchRegister() {
 export default function registerReducer(state = initialState, action) {
     switch (action.type) {
         case REGISTER:
-            if(action.payload.message == "register success") {
+            if(action.payload.message === "register success") {
                 return(
                     state.set('message', action.payload.message)
                          .set('email', action.payload.data.email)

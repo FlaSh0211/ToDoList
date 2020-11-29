@@ -49,8 +49,6 @@ const RegisterForm = ({ history, registerState, registerActions }) => {
         };
         // axios
         registerActions.registerRequest(data);
-       
-        
     };
 
     return (
