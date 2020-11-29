@@ -1,3 +1,3 @@
-import axios from './baseAxios';
+import axios  from './baseAxios';
 
-export const register = ({ email, password, nickname })=> axios.post('/login', { email, password, nickname });
+export const register = ({ email, password, nickname })=> axios.post('/api/auth/register', { email, password, nickname });

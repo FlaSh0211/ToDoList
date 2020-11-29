@@ -65,13 +65,13 @@ const initialState = Map ({
     date: []
 });
 
-export const getTodoListRequest = ({ username })=> ({ type: LOCAL_GET_TODOLIST, payload:{ username }});
+export const getTodoListRequest = ({ email })=> ({ type: LOCAL_GET_TODOLIST, payload:{ email }});
 export const updateTodoListRequest = ({ id, content })=> ({ type: LOCAL_UPDATE, payload:{ id, content }});
 export const deleteDayTodoListRequest = ({ date })=> ({ type: LOCAL_DELETE_DAY, payload:{ date }});
 export const deleteListTodoListRequest = ({ id })=> ({ type: LOCAL_DELETE_LIST, payload:{ id }});
 export const createTodoListRequest = ({ username, content, type, date })=> ({ type: LOCAL_CREATE, payload:{ username, content, type, date }});
 
-export const getTodoList = (demo,date)=> ({ type: GET_TODOLIST, payload: { demo, date }});
+export const getTodoList = ({ data })=> ({ type: GET_TODOLIST, payload: { data }});
 export const updateTodoList = ({ id, content })=> ({ type: UPDATE, payload:{ id, content }});
 export const deleteDayTodoList = ({ date })=> ({ type: DELETE_DAY, payload:{ date }});
 export const deleteListTodoList = ({ id })=> ({ type: DELETE_LIST, payload:{ id }});
@@ -79,7 +79,8 @@ export const createTodoList = ({ username, content, type, date })=> ({ type: CRE
 
 export function* getTodoListSaga(action) {
     try {
-        // const data = yield call(todolistAxios.getPosts, action.payload);
+        const data = yield call(todolistAxios.getPosts, action.payload);
+        console.log(data)
         let date = [... new Set(demo.map(el => el.date))];
         yield put(getTodoList(demo, date));
     } catch(e) {

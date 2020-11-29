@@ -39,7 +39,7 @@ const tailFormItemLayout = {
   },
 };
 
-const RegisterForm = ({ registerState, registerActions }) => {
+const RegisterForm = ({ history, registerState, registerActions }) => {
     const [form] = Form.useForm();
     const onFinish = (values) => {
         let data = {
@@ -49,7 +49,8 @@ const RegisterForm = ({ registerState, registerActions }) => {
         };
         // axios
         registerActions.registerRequest(data);
-        console.log(registerState,'데이터');
+       
+        
     };
 
     return (

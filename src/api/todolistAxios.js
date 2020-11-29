@@ -1,7 +1,7 @@
 import axios from './baseAxios';
 
-export const create = ({ email, content, type })=> axios.post('/login', { email, content, type });
-export const update = ({ email, id, content })=> axios.post('/login', { email, id, content });
-export const deletePost = ({ id })=> axios.post('/login', { id });
-export const deleteDayPosts = ({ date })=> axios.put('/login', { date });
-export const getPosts = ({ username })=> axios.post('/login', { username });
+export const create = ({ email, content, type })=> axios.post('/todolist/create', { email, content, type });
+export const update = ({ email, id, content })=> axios.post('/todolist/update', { email, id, content });
+export const deletePost = ({ id })=> axios.post('/todolist/deleteList', { id });
+export const deleteDayPosts = ({ date })=> axios.put('/todolist/deleteDay', { date });
+export const getPosts = ({ email })=> axios.post('api/todolist/get', { email });

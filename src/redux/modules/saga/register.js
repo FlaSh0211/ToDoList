@@ -15,15 +15,14 @@ const initialState = Map ({
 });
 
 export const registerRequest = ({ email, password, nickname })=> ({ type: LOCAL_REGISTER, payload:{ email, password, nickname }});
-export const register = ({ email, password, nickname })=> ({ type: REGISTER, payload:{ email, password, nickname }});
+export const register = (data, message)=> ({ type: REGISTER, payload: { data, message }});
 
 export function* localRegisterSaga(action) {
     try {
-        const data = yield call(registerAxios.register, action.payload);
-        yield put(register(data));
+        const result = yield call(registerAxios.register, action.payload);
+        yield put(register(result.data.data, result.data.message));
     } catch(e) {
         console.log('register error');
-        // yield put(register(data));
     }
 }
 export function* watchRegister() {
@@ -33,7 +32,20 @@ export function* watchRegister() {
 export default function registerReducer(state = initialState, action) {
     switch (action.type) {
         case REGISTER:
-            return(state.setIn('message', action.payload.message));
+            if(action.payload.message == "register success") {
+                return(
+                    state.set('message', action.payload.message)
+                         .set('email', action.payload.data.email)
+                         .set('nickname', action.payload.data.nickname)
+                );
+            }
+            else {
+                return(
+                    state.set('message', action.payload.message)
+                         .set('email', "")
+                         .set('nickname', "")
+                )
+            }
         default: 
             return state;
     }

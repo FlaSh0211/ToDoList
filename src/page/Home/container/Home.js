@@ -10,7 +10,7 @@ const Home = ({ todoListState, todoListActions }) => {
     
     useEffect(()=> {
         // username을 localstorage에서 get
-        todoListActions.getTodoListRequest({ username:'nexus2493' });
+        todoListActions.getTodoListRequest({ email:'nexus2493@gmail.com' });
      }, [])
 
     useEffect(()=> {
