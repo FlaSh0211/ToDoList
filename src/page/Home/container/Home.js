@@ -5,27 +5,6 @@ import { bindActionCreators } from 'redux';
 import * as todoListCreators from 'redux/modules/saga/todolist';
 import { connect } from 'react-redux';
 
-// const demo = [
-//     {
-//         id: 1,
-//         content: "투두리스트1",
-//         date: "2020-11-16",
-//         type: 'success'
-//     },
-//     {
-//         id: 2,
-//         content: "투두리스트2",
-//         date: "2020-11-17",
-//         type: 'success'
-//     },
-//     {
-//         id: 3,
-//         content: "투두리스트3",
-//         date: "2020-11-17",
-//         type: 'success'
-//     }
-// ]
-
 const Home = ({ todoListState, todoListActions }) => {
     const [datas,setData] = useState([]);
     
@@ -37,14 +16,15 @@ const Home = ({ todoListState, todoListActions }) => {
     useEffect(()=> {
         const newData = ()=> {
             let demo = todoListState.get('data');
-            console.log(todoListState.get('data'),'데모')
             let array = [];
             for(let el in demo) {
                 array.push([demo[el]['date'],demo[el]]);
             } 
             setData(datas.concat(array));
         };
-        newData();
+        if(datas.length == 0) {
+            newData();
+        }
     }, [todoListState]);
 
     const getListData = value => { 
