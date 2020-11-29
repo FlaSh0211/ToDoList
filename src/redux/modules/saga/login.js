@@ -5,23 +5,23 @@ import { Map } from 'immutable';
 const LOGIN = 'login/LOGIN';
 
 const LOCAL_LOGIN = 'login/LOCAL_LOGIN';
+const SET_MESSAGE = 'login/SET_MESSAGE';
 
 const initialState = Map ({
-    username: '',
+    email: '',
     nickname: '',
-    password: '',
-    message: '',
+    message: 'no login',
 });
 
-export const loginRequest = ({ username, password })=> ({ type: LOCAL_LOGIN, payload:{ username, password }});
-export const login = ({ username, password })=> ({ type: LOGIN, payload:{ username, password }});
+export const loginRequest = ({ email, password })=> ({ type: LOCAL_LOGIN, payload:{ email, password }});
+export const login = (data, message, token)=> ({ type: LOGIN, payload:{ data, message, token }});
+export const setMessage = ()=> ({ type: SET_MESSAGE });
 
 export function* localLoginSaga(action) {
     try {
-        // const data = yield call(loginAxios.login, action.payload);
-        // yield put(login(data));
-        console.log(action.payload);
-        yield put(login(action.payload));
+        const result = yield call(loginAxios.login, action.payload);
+        console.log(result.data.message)
+        yield put(login(result.data.data, result.data.message, result.data.token));
     } catch(e) {
         console.log('login error');
         // yield put(login(data));
@@ -34,12 +34,20 @@ export function* watchLogin() {
 export default function loginReducer(state = initialState, action) {
     switch (action.type) {
         case LOGIN:
-            console.log(action.payload,'리덕스')
-            return(
-                state.set('username', action.payload.username)
-                     .set('nickname', action.payload.nickname)
-                     .set('message', action.payload.message)
-            );
+            if(action.payload.message === "login success") {
+                return(
+                    state.set('email', action.payload.data.email)
+                         .set('nickname', action.payload.data.nickname)
+                         .set('message', action.payload.message)
+                );
+            }
+            else{
+                return(
+                    state.set('message', action.payload.message)
+                );
+            }
+        case SET_MESSAGE:
+            return(state.set('message', "no login"));
         default: 
             return state;
     }

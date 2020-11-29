@@ -1,18 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Checkbox, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as loginCreators from 'redux/modules/saga/login';
 import { connect } from 'react-redux';
+import { notification } from 'antd';
 
-const Login = ({ history, state, loginState, loginActions })=> {
+const Login = ({ history, loginState, loginActions })=> {
+    useEffect(()=> {
+        let message = loginState.get('message')
+        if(message === 'login success') {
+            notification.open({
+                message: '로그인 성공',
+                style: {
+                    width: 600,
+                },
+                duration: 1
+            });
+            loginActions.setMessage();
+            history.push('/')
+        }
+        else if(message !== 'no login') {
+            notification.open({
+                message: message,
+                style: {
+                    width: 600,
+                },
+                duration: 1
+            });
+            loginActions.setMessage();
+        }
+    },[loginState])
+
     const onFinish = (values) => {
         let data = {
-            username: values.username,
+            email: values.username,
             password: values.password
         };
-        console.log(data,'데이터')
         // axios 로 전송
         loginActions.loginRequest(data);
     };

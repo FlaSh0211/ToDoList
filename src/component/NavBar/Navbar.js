@@ -8,7 +8,6 @@ const Nav = ({ history }) => {
             current: null,
     }); 
     const handleClick = e => {
-        console.log(e.key)
         setState({ current: e.key });
         if(e.key === undefined) {
             history.push('/');
