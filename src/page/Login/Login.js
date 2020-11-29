@@ -12,7 +12,7 @@ const Login = ({ history, loginState, loginActions })=> {
         let message = loginState.get('message')
         if(message === 'login success') {
             notification.open({
-                message: '로그인 성공',
+                message: message,
                 style: {
                     width: 600,
                 },
