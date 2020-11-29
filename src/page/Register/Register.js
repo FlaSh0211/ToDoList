@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import * as registerCreators from 'redux/modules/saga/register';
 import { bindActionCreators } from 'redux';
 
-const Register = ({ registerActions, registerState })=>{
+const Register = ({ history, registerActions, registerState })=>{
     return (
-      <RegisterForm registerActions={registerActions} registerState={registerState}/>
+      <RegisterForm registerActions={registerActions} registerState={registerState} history={history}/>
     )
 }
 

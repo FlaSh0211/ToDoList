@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Tooltip, Button } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { notification } from 'antd';
 
 const formItemLayout = {
   labelCol: {
@@ -49,6 +50,14 @@ const RegisterForm = ({ history, registerState, registerActions }) => {
         };
         // axios
         registerActions.registerRequest(data);
+        notification.open({
+            message: '회원가입 성공',
+            style: {
+                width: 600,
+            },
+            duration: 1
+        });
+        history.push('/')
     };
 
     return (
@@ -86,6 +95,7 @@ const RegisterForm = ({ history, registerState, registerActions }) => {
             {
                 required: true,
                 message: 'Please input your password!',
+                min: 5
             },
             ]}
             hasFeedback

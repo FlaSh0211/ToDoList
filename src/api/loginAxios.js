@@ -1,3 +1,3 @@
 import axios from './baseAxios';
 
-export const login = ({ username, password })=> axios.post('/login', { username, password });
+export const login = ({ email, password })=> axios.post('api/auth/login', { email, password });
