@@ -6,11 +6,6 @@ import { bindActionCreators } from 'redux';
 import * as loginCreators from 'redux/modules/saga/login';
 import { connect } from 'react-redux';
 
-let demo = {
-    username: '',
-    password: ''
-}
-
 const Login = ({ history, state, loginState, loginActions })=> {
     const onFinish = (values) => {
         let data = {
