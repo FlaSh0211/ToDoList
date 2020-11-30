@@ -58,7 +58,6 @@ export function* updateTodoListSaga(action) {
         yield put(updateTodoList(result.data.data, result.data.message));
     } catch(e) {
         console.log('update list error');
-        // yield put(updateTodoList(data));
     }
 }
 export function* deleteDayTodoListSaga(action) {
@@ -67,16 +66,14 @@ export function* deleteDayTodoListSaga(action) {
         yield put(deleteDayTodoList(action.payload));
     } catch(e) {
         console.log('delete day list error');
-        // yield put(deleteDayTodoList(data));
     }
 }
 export function* deleteListTodoListSaga(action) {
     try {
-        // const data = yield call(todolistAxios.deletePost, action.payload);
+        yield call(todolistAxios.deletePost, action.payload);
         yield put(deleteListTodoList(action.payload));
     } catch(e) {
         console.log('delete one list error');
-        // yield put(deleteListTodoList(data));
     }
 }
 
@@ -90,7 +87,6 @@ export function* watchTodoList() {
     
 }
 
-// 메시지가 있으면 데이터를 다시받아 렌더링
 export default function todolistReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE:

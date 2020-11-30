@@ -69,7 +69,7 @@ const Todolist = ({ todoListState, todoListActions })=> {
                 },
                 duration: 1
             });
-         }
+        }
     }
     const clickOnEdit = (_id, content) => {
         let inputVal;
@@ -84,10 +84,10 @@ const Todolist = ({ todoListState, todoListActions })=> {
                   width: 600,
                 },
                 duration: 1
-              });
+            });
 
         } 
-        else{
+        else {
             setEdit(stateEdit.concat([_id]));
             setInput({...input, [_id]: content});
         }
