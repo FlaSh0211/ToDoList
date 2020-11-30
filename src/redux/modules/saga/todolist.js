@@ -22,25 +22,24 @@ const initialState = Map ({
 });
 
 export const getTodoListRequest = ()=> ({ type: LOCAL_GET_TODOLIST });
-export const updateTodoListRequest = ({ id, content })=> ({ type: LOCAL_UPDATE, payload:{ id, content }});
+export const updateTodoListRequest = ({ _id, content })=> ({ type: LOCAL_UPDATE, payload:{ _id, content }});
 export const deleteDayTodoListRequest = ({ date })=> ({ type: LOCAL_DELETE_DAY, payload:{ date }});
-export const deleteListTodoListRequest = ({ id })=> ({ type: LOCAL_DELETE_LIST, payload:{ id }});
+export const deleteListTodoListRequest = ({ _id })=> ({ type: LOCAL_DELETE_LIST, payload:{ _id }});
 export const createTodoListRequest = ({ username, content, type, date })=> ({ type: LOCAL_CREATE, payload:{ username, content, type, date }});
 
 export const getTodoList = (data, message, date)=> ({ type: GET_TODOLIST, payload: { data, message, date }});
-export const updateTodoList = ({ id, content })=> ({ type: UPDATE, payload:{ id, content }});
+export const updateTodoList = ({ _id, content })=> ({ type: UPDATE, payload:{ _id, content }});
 export const deleteDayTodoList = ({ date })=> ({ type: DELETE_DAY, payload:{ date }});
-export const deleteListTodoList = ({ id })=> ({ type: DELETE_LIST, payload:{ id }});
+export const deleteListTodoList = ({ _id })=> ({ type: DELETE_LIST, payload:{ _id }});
 export const createTodoList = ({ username, content, type, date })=> ({ type: CREATE, payload:{ username, content, type, date }});
 
-export function* getTodoListSaga(action) {
+export function* getTodoListSaga() {
     try {
         const result = yield call(todolistAxios.getPosts);
         let date = [... new Set(result.data.data.map(el => el.dateString))];
         yield put(getTodoList(result.data.data, result.data.message, date));
     } catch(e) {
         console.log('get list error');
-        // yield put(getTodoList(data));
     }
 }
 export function* createTodoListSaga(action) {
@@ -54,8 +53,9 @@ export function* createTodoListSaga(action) {
 }
 export function* updateTodoListSaga(action) {
     try {
-        // const data = yield call(todolistAxios.update, action.payload);
-        yield put(updateTodoList(action.payload));
+        const result = yield call(todolistAxios.update, action.payload);
+        console.log(result,"asdasd")
+        yield put(updateTodoList(result.data.data, result.data.message));
     } catch(e) {
         console.log('update list error');
         // yield put(updateTodoList(data));
@@ -98,10 +98,9 @@ export default function todolistReducer(state = initialState, action) {
                 state.set(action.payload.data)
             );
          case UPDATE:
-             let result_update = state.get('data').indexOf(state.get('data').find(el => el.id === action.payload.id? el: null))
-             console.log( state.getIn(['data',result_update,'content']),'asdsad')
+             let updateId = state.get('data').indexOf(state.get('data').find(el => el._id === action.payload._id? el: null))
             return(
-                state.setIn(['data',result_update,'content'], action.payload.content)
+                state.setIn(['data',updateId,'content'], action.payload.content)
             );
          case DELETE_DAY:
             let result_delete_day = state.get('data').filter(el => el.date !== action.payload.date)
