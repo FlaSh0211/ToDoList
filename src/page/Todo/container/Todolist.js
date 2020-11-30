@@ -20,17 +20,13 @@ const EditButton = styled.div `
 const Todolist = ({ todoListState, todoListActions })=> {
     const [state, setState] = useState();
     const [stateEdit, setEdit] = useState([]);
-    const [input, setInput]  = useState([]);
+    const [input, setInput]  = useState();
     const [addList, setList] = useState(false);
     const [listContent, setContent] = useState("");
     const [datePicks, setDatePick] = useState(false);
 
-    const dateData = todoListState.get('date');
-    const demoData = todoListState.get('data');
-
     useEffect(()=> {
-        // username을 localstorage에서 get
-        todoListActions.getTodoListRequest({ username:'nexus2493' });
+        todoListActions.getTodoListRequest();
      },[])
      
     const datePick = (date, dateString)=> {
@@ -59,13 +55,12 @@ const Todolist = ({ todoListState, todoListActions })=> {
         // 백엔드로 axios 요청 후 다시 받아 렌더링
         else {
             const sendData = {
-                author: '',
                 date: day,
                 content: listContent,
                 type: 'success'
             }
+            todoListActions.createTodoListRequest(sendData)
             setContent("");
-            console.log(sendData,' 생성')
             notification.open({
                 message: '항목을 새로 생성했습니다',
                 style: {
@@ -73,36 +68,32 @@ const Todolist = ({ todoListState, todoListActions })=> {
                 },
                 duration: 1
             });
-         }
+        }
     }
-    const clickOnEdit = (id, content) => {
+    const clickOnEdit = (_id, content) => {
         let inputVal;
-        if(stateEdit.find(el=> el === id)){
-            setEdit(stateEdit.filter(stateEdit => stateEdit !== id));
-            for(let el in input) {
-                if(Number(el) === id) {
-                    inputVal = input[id];
-                }
-            }
+        if(stateEdit.find(el=> el === _id)){
+            setEdit(stateEdit.filter(stateEdit => stateEdit !== _id));
             // axios 요청
-            todoListActions.updateTodoListRequest( { id, content: input[id]});
-            delete input[id];
+            todoListActions.updateTodoListRequest( { _id, content: input[_id]});
+            delete input[_id];
             notification.open({
                 message: '수정되었습니다',
                 style: {
                   width: 600,
                 },
                 duration: 1
-              });
+            });
+
         } 
-        else{
-            setEdit(stateEdit.concat([id]));
-            setInput({...input, [id]: content});
+        else {
+            setEdit(stateEdit.concat([_id]));
+            setInput({...input, [_id]: content});
         }
     }
-    const deleteList = id=> {
+    const deleteList = _id=> {
         // axios 요청
-        todoListActions.deleteListTodoListRequest({ id })
+        todoListActions.deleteListTodoListRequest({ _id })
         notification.open({
             message: '삭제되었습니다',
             style: {
@@ -128,8 +119,8 @@ const Todolist = ({ todoListState, todoListActions })=> {
             </div>
         </div>
     );
-    const onChangeEdit = (e,id)=> {
-        setInput({...input, [id]: e.target.value});
+    const onChangeEdit = (e,_id)=> {
+        setInput({...input, [_id]: e.target.value});
     }
     const createDisable = ()=> {
         setList(false);
@@ -140,7 +131,6 @@ const Todolist = ({ todoListState, todoListActions })=> {
         setContent(value);
     }
     const onChangePage= pageNumber => {
-        console.log('Page: ', pageNumber);
     }
 
     return (
@@ -161,35 +151,35 @@ const Todolist = ({ todoListState, todoListActions })=> {
                     </div>: null
                 }
                 <Collapse accordion>
-                    {dateData.length !== 0? 
-                        dateData.map(unqdate=>
+                    {todoListState.get('date').length !== 0 ? 
+                        todoListState.get('date').map(unqdate=>
                         <Panel key={unqdate} header={unqdate} key={unqdate} extra={genExtra(unqdate)}>
-                        <div style={{maxHeight: "300px", overflow: 'auto'}}> 
-                            {demoData.map(data => data.date === unqdate ?
-                                <Card key={data.id} id = {data.id} style={{margin: "0 auto", marginTop: "10px"}}>
+                        <div style={{maxHeight: "300px", overflow: 'auto'}}>
+                            {todoListState.get('data').map(data => data.dateString === unqdate ?
+                                <Card key={data._id} id = {data._id} style={{margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
-                                            {stateEdit.find(ele=> ele === data.id)?
-                                                <TextArea showCount maxLength={100} value= {input[data.id]? input[data.id]: null} onChange={(e)=>onChangeEdit(e,data.id)} />:
+                                            {stateEdit.find(ele=> ele === data._id)?
+                                                <TextArea showCount maxLength={100} value= {input[data._id]? input[data._id]: null} onChange={(e)=>onChangeEdit(e,data._id)} />:
                                                 data.content
                                             }
                                         </Whattodo>
                                         <div style={{margin: "auto 0"}}>
-                                            { stateEdit.find(id=> id === data.id) ? 
+                                            { stateEdit.find(id=> id === data._id) ? 
                                             <EditButton style={{margin: "auto 0", marginLeft: "auto"}}>
-                                                <Button type="link" onClick={() =>clickOnEdit(data.id, data.content)}>
+                                                <Button type="link" onClick={() =>clickOnEdit(data._id, data.content)}>
                                                     <CheckOutlined />
                                                 </Button>
                                             </EditButton>
                                             :
                                             <EditButton style={{margin: "auto 0", marginLeft: "auto"}}>
-                                                <Button type="link" onClick={() =>clickOnEdit(data.id, data.content)}>
+                                                <Button type="link" onClick={() =>clickOnEdit(data._id, data.content)}>
                                                     <EditOutlined style={{color: "green"}}/>
                                                 </Button>
                                             </EditButton>
                                             }
                                             <EditButton style={{margin: "auto 0"}}>
-                                                <Button type="link"  onClick={()=>deleteList(data.id)}>
+                                                <Button type="link"  onClick={()=>deleteList(data._id)}>
                                                     <DeleteOutlined style={{color: "red"}}/>
                                                 </Button>
                                             </EditButton>
