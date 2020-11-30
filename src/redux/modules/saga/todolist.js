@@ -63,7 +63,7 @@ export function* updateTodoListSaga(action) {
 }
 export function* deleteDayTodoListSaga(action) {
     try {
-        // const data = yield call(todolistAxios.deleteDayPosts, action.payload);
+        yield call(todolistAxios.deleteDayPosts, action.payload);
         yield put(deleteDayTodoList(action.payload));
     } catch(e) {
         console.log('delete day list error');

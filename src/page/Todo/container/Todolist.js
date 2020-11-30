@@ -24,20 +24,10 @@ const Todolist = ({ todoListState, todoListActions })=> {
     const [addList, setList] = useState(false);
     const [listContent, setContent] = useState("");
     const [datePicks, setDatePick] = useState(false);
-    const [dateData, setDate] = useState([]);
-    const [demoData, setDemo] = useState([]);
 
     useEffect(()=> {
-        // username을 localstorage에서 get
         todoListActions.getTodoListRequest();
      },[])
-
-     useEffect(()=> {
-        if(dateData.length === 0) {
-            setDate(dateData.concat(todoListState.get('date')))
-            setDemo(demoData.concat(todoListState.get('data')))
-        }
-     },[todoListState])
      
     const datePick = (date, dateString)=> {
         // date는 사용된다 지우지 마시오
@@ -95,8 +85,7 @@ const Todolist = ({ todoListState, todoListActions })=> {
                 },
                 duration: 1
               });
-            setDate([])
-            setDemo([])
+
         } 
         else{
             setEdit(stateEdit.concat([_id]));
@@ -163,11 +152,11 @@ const Todolist = ({ todoListState, todoListActions })=> {
                     </div>: null
                 }
                 <Collapse accordion>
-                    {dateData.length !== 0 ? 
-                        dateData.map(unqdate=>
+                    {todoListState.get('date').length !== 0 ? 
+                        todoListState.get('date').map(unqdate=>
                         <Panel key={unqdate} header={unqdate} key={unqdate} extra={genExtra(unqdate)}>
                         <div style={{maxHeight: "300px", overflow: 'auto'}}>
-                            {demoData.map(data => data.dateString === unqdate ?
+                            {todoListState.get('data').map(data => data.dateString === unqdate ?
                                 <Card key={data._id} id = {data._id} style={{margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
