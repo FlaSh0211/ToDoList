@@ -22,9 +22,9 @@ export function* localLoginSaga(action) {
         const result = yield call(loginAxios.login, action.payload);
         console.log(result.data.message)
         yield put(login(result.data.data, result.data.message, result.data.token));
+        localStorage.setItem("token", result.data.token);
     } catch(e) {
         console.log('login error');
-        // yield put(login(data));
     }
 }
 export function* watchLogin() {

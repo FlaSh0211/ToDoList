@@ -15,63 +15,19 @@ const LOCAL_UPDATE = 'todolist/LOCAL_UPDATE';
 const LOCAL_DELETE_LIST = 'todolist/LOCAL_DELETE_LIST';
 const LOCAL_GET_TODOLIST = 'todolist/LOCAL_GET_TODOLIST';
 
-let demo = [
-    {
-        id: 1,
-        content: "투두리스트1",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 2,
-        content: "투두리스트2",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 3,
-        content: "투두리스트3",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 4,
-        content: "투두리스트4",
-        date: "2020-11-19",
-        type: 'success',
-    },
-    {
-        id: 5,
-        content: "투두리스트5",
-        date: "2020-11-15",
-        type: 'success',
-    },
-    {
-        id:6,
-        content: "투두리스트6",
-        date: "2020-11-16",
-        type: 'success',
-    },
-    {
-        id: 7,
-        content: "투두리스트7",
-        date: "2020-11-16",
-        type: 'success',
-    }
-];
-
 const initialState = Map ({
     data: [],
-    date: []
+    date: [],
+    message: ""
 });
 
-export const getTodoListRequest = ({ email })=> ({ type: LOCAL_GET_TODOLIST, payload:{ email }});
+export const getTodoListRequest = ()=> ({ type: LOCAL_GET_TODOLIST });
 export const updateTodoListRequest = ({ id, content })=> ({ type: LOCAL_UPDATE, payload:{ id, content }});
 export const deleteDayTodoListRequest = ({ date })=> ({ type: LOCAL_DELETE_DAY, payload:{ date }});
 export const deleteListTodoListRequest = ({ id })=> ({ type: LOCAL_DELETE_LIST, payload:{ id }});
 export const createTodoListRequest = ({ username, content, type, date })=> ({ type: LOCAL_CREATE, payload:{ username, content, type, date }});
 
-export const getTodoList = ({ data })=> ({ type: GET_TODOLIST, payload: { data }});
+export const getTodoList = (data, message, date)=> ({ type: GET_TODOLIST, payload: { data, message, date }});
 export const updateTodoList = ({ id, content })=> ({ type: UPDATE, payload:{ id, content }});
 export const deleteDayTodoList = ({ date })=> ({ type: DELETE_DAY, payload:{ date }});
 export const deleteListTodoList = ({ id })=> ({ type: DELETE_LIST, payload:{ id }});
@@ -79,10 +35,9 @@ export const createTodoList = ({ username, content, type, date })=> ({ type: CRE
 
 export function* getTodoListSaga(action) {
     try {
-        const data = yield call(todolistAxios.getPosts, action.payload);
-        console.log(data)
-        let date = [... new Set(demo.map(el => el.date))];
-        yield put(getTodoList(demo, date));
+        const result = yield call(todolistAxios.getPosts);
+        let date = [... new Set(result.data.data.map(el => el.dateString))];
+        yield put(getTodoList(result.data.data, result.data.message, date));
     } catch(e) {
         console.log('get list error');
         // yield put(getTodoList(data));
@@ -163,8 +118,9 @@ export default function todolistReducer(state = initialState, action) {
             );
          case GET_TODOLIST:
             return(
-                state.set('data',action.payload.demo)
-                     .set('date',action.payload.date)
+                state.set('data', action.payload.data)
+                     .set('date', action.payload.date)
+                     .set('message', action.payload.message)
             );
         default: 
             return state;

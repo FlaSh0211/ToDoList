@@ -24,14 +24,19 @@ const Todolist = ({ todoListState, todoListActions })=> {
     const [addList, setList] = useState(false);
     const [listContent, setContent] = useState("");
     const [datePicks, setDatePick] = useState(false);
-
-    const dateData = todoListState.get('date');
-    const demoData = todoListState.get('data');
+    const [dateData, setDate] = useState([]);
+    const [demoData, setDemo] = useState([]);
 
     useEffect(()=> {
         // username을 localstorage에서 get
-        todoListActions.getTodoListRequest({ username:'nexus2493' });
+        todoListActions.getTodoListRequest();
      },[])
+
+     useEffect(()=> {
+
+        setDate(dateData.concat(todoListState.get('date')))
+        setDemo(demoData.concat(todoListState.get('data')))
+     },[todoListState])
      
     const datePick = (date, dateString)=> {
         // date는 사용된다 지우지 마시오
@@ -140,7 +145,6 @@ const Todolist = ({ todoListState, todoListActions })=> {
         setContent(value);
     }
     const onChangePage= pageNumber => {
-        console.log('Page: ', pageNumber);
     }
 
     return (
@@ -164,8 +168,8 @@ const Todolist = ({ todoListState, todoListActions })=> {
                     {dateData.length !== 0? 
                         dateData.map(unqdate=>
                         <Panel key={unqdate} header={unqdate} key={unqdate} extra={genExtra(unqdate)}>
-                        <div style={{maxHeight: "300px", overflow: 'auto'}}> 
-                            {demoData.map(data => data.date === unqdate ?
+                        <div style={{maxHeight: "300px", overflow: 'auto'}}>
+                            {demoData.map(data => data.dateString === unqdate ?
                                 <Card key={data.id} id = {data.id} style={{margin: "0 auto", marginTop: "10px"}}>
                                     <div style={{display: 'flex', justifyContent: "space-between"}}>
                                         <Whattodo style={{width: "100%"}}>
