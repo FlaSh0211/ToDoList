@@ -9,13 +9,12 @@ const Home = ({ todoListState, todoListActions }) => {
     const [datas,setData] = useState([]);
     
     useEffect(()=> {
-        // username을 localstorage에서 get
         todoListActions.getTodoListRequest();
      }, [])
 
     useEffect(()=> {
+        let demo = todoListState.get('data');
         const newData = ()=> {
-            let demo = todoListState.get('data');
             let array = [];
             for(let el in demo) {
                 array.push([demo[el]['dateString'],demo[el]]);
@@ -27,14 +26,14 @@ const Home = ({ todoListState, todoListActions }) => {
         }
     }, [todoListState]);
 
-    const getListData = value => { 
+    const getListData = value => {
+        console.log(datas) 
         let year, month, date;
         let listData=[];
         for (let v = 0; v < datas.length; v++) {
             year = new Date(datas[v][0]).getFullYear();
             month = new Date(datas[v][0]).getMonth();
             date = new Date(datas[v][0]).getDate();
-            
             if(value.year() === year){
                 if(value.month() === month) {
                     if(value.date() === date) {
