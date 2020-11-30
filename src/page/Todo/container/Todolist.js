@@ -55,13 +55,12 @@ const Todolist = ({ todoListState, todoListActions })=> {
         // 백엔드로 axios 요청 후 다시 받아 렌더링
         else {
             const sendData = {
-                author: '',
                 date: day,
                 content: listContent,
                 type: 'success'
             }
+            todoListActions.createTodoListRequest(sendData)
             setContent("");
-            console.log(sendData,' 생성')
             notification.open({
                 message: '항목을 새로 생성했습니다',
                 style: {
