@@ -71,7 +71,6 @@ const Todolist = ({ todoListState, todoListActions })=> {
         }
     }
     const clickOnEdit = (_id, content) => {
-        let inputVal;
         if(stateEdit.find(el=> el === _id)){
             setEdit(stateEdit.filter(stateEdit => stateEdit !== _id));
             // axios 요청

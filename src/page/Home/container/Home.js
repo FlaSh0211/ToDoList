@@ -21,10 +21,10 @@ const Home = ({ todoListState, todoListActions }) => {
             } 
             setData(datas.concat(array));
         };
-        if(datas.length == 0) {
+        if(datas.length === 0) {
             newData();
         }
-        if(demo.length == 0) {
+        if(demo.length === 0) {
             setData([])
         }
     }, [todoListState]);

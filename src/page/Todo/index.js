@@ -5,7 +5,7 @@ import Todolist from './container/Todolist';
 const TodoComponent = ()=> {
     return (
         <>
-            <Route exact path="/todolist" component= { Todolist } />
+            <Route path="/todolist" component= { Todolist } />
         </>
     )
 }

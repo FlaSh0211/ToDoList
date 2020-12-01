@@ -40,7 +40,7 @@ export const createTodoList = (data, message, date)=> ({ type: CREATE, payload:{
 export function* getTodoListSaga() {
     try {
         const result = yield call(todolistAxios.getPosts);
-        let date = [... new Set(result.data.data.map(el => el.dateString))];
+        let date = [...new Set(result.data.data.map(el => el.dateString))];
         yield put(getTodoList(result.data.data, result.data.message, date));
     } catch(e) {
         console.log('get list error');
@@ -54,7 +54,7 @@ export function* resetSaga() {
 export function* createTodoListSaga(action) {
     try {
         const result = yield call(todolistAxios.create, action.payload);
-        let date = [... new Set(result.data.data.map(el => el.dateString))];
+        let date = [...new Set(result.data.data.map(el => el.dateString))];
         yield put(createTodoList(result.data.data, result.data.message, date));
     } catch(e) {
         console.log('create list error');

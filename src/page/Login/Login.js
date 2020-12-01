@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button, Checkbox, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -41,6 +41,7 @@ const Login = ({ history, loginState, loginActions })=> {
     };
 
     return (
+        <div style={{justifyContent:"center", marginTop: "80px"}}>
         <Form
             name="normal_login"
             className="login-form"
@@ -49,7 +50,7 @@ const Login = ({ history, loginState, loginActions })=> {
             }}
             onFinish={ onFinish }
         >
-            <Col md={{span: 8, offset: 8}} style={{marginTop: "80px"}}>
+            <Col md={{span: 8, offset: 8}}>
                 <Form.Item 
                 name="username"
                 rules={[
@@ -109,7 +110,9 @@ const Login = ({ history, loginState, loginActions })=> {
                         Or <Link to='/register'>&nbsp;register now!</Link>
                 </Form.Item>
             </Col>
+            
         </Form>
+        </div>
     );
 };
 
