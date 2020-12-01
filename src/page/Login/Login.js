@@ -18,10 +18,9 @@ const Login = ({ history, loginState, loginActions })=> {
                 },
                 duration: 1
             });
-            loginActions.setMessage();
             history.push('/')
         }
-        else if(message !== 'no login') {
+        else if(message) {
             notification.open({
                 message: message,
                 style: {
@@ -29,7 +28,6 @@ const Login = ({ history, loginState, loginActions })=> {
                 },
                 duration: 1
             });
-            loginActions.setMessage();
         }
     },[loginState])
 

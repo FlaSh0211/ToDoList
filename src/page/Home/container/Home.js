@@ -24,10 +24,12 @@ const Home = ({ todoListState, todoListActions }) => {
         if(datas.length == 0) {
             newData();
         }
+        if(demo.length == 0) {
+            setData([])
+        }
     }, [todoListState]);
 
     const getListData = value => {
-        console.log(datas) 
         let year, month, date;
         let listData=[];
         for (let v = 0; v < datas.length; v++) {
