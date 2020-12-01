@@ -4,9 +4,11 @@ import App from './App';
 
 const Root = () => {
     return (
-        <BrowserRouter>
-            <Route path="/" component={ App }/>
-        </BrowserRouter>
+        <div style={{height: "100vh"}}>
+            <BrowserRouter>
+                <Route path="/" component={ App }/>
+            </BrowserRouter>
+        </div>
     );
 };
 

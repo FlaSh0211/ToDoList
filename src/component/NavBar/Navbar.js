@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Menu, Avatar, Dropdown, Button } from 'antd';
 import { UserOutlined, HomeOutlined, WechatOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ const Nav = ({ history, loginState, todoListActions, loginActions }) => {
     const handleClick = e => {
         console.log(e.key)
         if(e.key === undefined) {
-            if(e.currentTarget.id == 'home') {
+            if(e.currentTarget.id === 'home') {
                 history.push(`/`);
             }
             else {

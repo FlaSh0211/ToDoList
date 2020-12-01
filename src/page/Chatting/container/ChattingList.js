@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Typography, Divider, Badge, Space } from 'antd';
+import { List, Badge, Space } from 'antd';
 import 'antd/dist/antd.css';
 
 const data = [
@@ -10,7 +10,7 @@ const data = [
 ];
 const ChattingList = ({ history })=> {
     const enterRoom = e => {
-        history.push(`/chatting/${e.target.id}`)
+        history.push(`/chatting/room/${e.currentTarget.id}`)
     }
     return (
         <div>
@@ -20,7 +20,7 @@ const ChattingList = ({ history })=> {
             footer={null}
             bordered
             >
-                <List.Item style={{"display": "flex", "justifyContent": "sapce-between"}} onClick={enterRoom} id={1}>
+                <List.Item style={{"display": "flex", "justifyContent": "sapce-between"}} onClick={enterRoom} id={2}>
                     {data[0]}
                     <Space>
                         <Badge count={25} />        

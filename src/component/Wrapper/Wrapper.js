@@ -8,7 +8,7 @@ import * as loginCreators from 'redux/modules/saga/login';
 const Wrapper = ({ history, loginState, todoListState, todoListActions, loginActions })=> {
     
     return(
-        <div>
+        <div style={{height: "10vh"}}>
             <Nav history={ history } loginState={ loginState } todoListState={ todoListState } todoListActions={ todoListActions } loginActions={ loginActions }/>
         </div>
     );
