@@ -5,6 +5,7 @@ import Login from 'page/Login/Login';
 import Register from 'page/Register/Register';
 import Wrapper from 'component/Wrapper/Wrapper';
 import TodoComponent from 'page/Todo';
+import ChattingComponent from 'page/Chatting';
 
 const App = ()=> {
     let history = useHistory();
@@ -15,6 +16,7 @@ const App = ()=> {
             <Route path="/login" component= { Login } />
             <Route path="/register" component= { Register } />
             <Route path="/todolist" component= { TodoComponent } />
+            <Route path="/chatting" component= { ChattingComponent } />
         </>
     );
 }
