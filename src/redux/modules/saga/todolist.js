@@ -8,7 +8,9 @@ const DELETE_DAY = 'todolist/DELETE_DAY';
 const UPDATE = 'todolist/UPDATE';
 const DELETE_LIST = 'todolist/DELETE_LIST';
 const GET_TODOLIST = 'todolist/GET_TODOLIST';
+const RESET = 'login/RESET';
 
+const LOCAL_RESET = 'login/LOCAL_RESE';
 const LOCAL_CREATE = 'todolist/LOCAL_CREATE';
 const LOCAL_DELETE_DAY = 'todolist/LOCAL_DELETE_DAY';
 const LOCAL_UPDATE = 'todolist/LOCAL_UPDATE';
@@ -26,7 +28,9 @@ export const updateTodoListRequest = ({ _id, content })=> ({ type: LOCAL_UPDATE,
 export const deleteDayTodoListRequest = ({ date })=> ({ type: LOCAL_DELETE_DAY, payload:{ date }});
 export const deleteListTodoListRequest = ({ _id })=> ({ type: LOCAL_DELETE_LIST, payload:{ _id }});
 export const createTodoListRequest = ({ content, type, date })=> ({ type: LOCAL_CREATE, payload:{ content, type, date }});
+export const resetRequest = ()=> ({ type: LOCAL_RESET });
 
+export const reset = ()=> ({ type: RESET });
 export const getTodoList = (data, message, date)=> ({ type: GET_TODOLIST, payload: { data, message, date }});
 export const updateTodoList = ({ _id, content })=> ({ type: UPDATE, payload:{ _id, content }});
 export const deleteDayTodoList = ({ date })=> ({ type: DELETE_DAY, payload:{ date }});
@@ -42,6 +46,11 @@ export function* getTodoListSaga() {
         console.log('get list error');
     }
 }
+
+export function* resetSaga() {
+    yield put(reset());
+}
+
 export function* createTodoListSaga(action) {
     try {
         const result = yield call(todolistAxios.create, action.payload);
@@ -83,11 +92,14 @@ export function* watchTodoList() {
     yield takeEvery(LOCAL_UPDATE, updateTodoListSaga);
     yield takeEvery(LOCAL_GET_TODOLIST, getTodoListSaga);
     yield takeEvery(LOCAL_DELETE_LIST, deleteListTodoListSaga);
+    yield takeEvery(LOCAL_RESET, resetSaga);
     
 }
 
 export default function todolistReducer(state = initialState, action) {
     switch (action.type) {
+        case RESET:
+            return initialState
         case CREATE:
             return(
                 state.set('data', action.payload.data)
