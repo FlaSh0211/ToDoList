@@ -41,7 +41,7 @@ const Login = ({ history, loginState, loginActions })=> {
     };
 
     return (
-        <div style={{justifyContent:"center", marginTop: "80px"}}>
+        <div  style={{ height: "90vh" }}>
         <Form
             name="normal_login"
             className="login-form"
@@ -49,9 +49,11 @@ const Login = ({ history, loginState, loginActions })=> {
                 remember: true,
             }}
             onFinish={ onFinish }
+            style={{ minHeight: "600px", paddingTop: "50px", textAlign: "center"}}
         >
-            <Col md={{span: 8, offset: 8}}>
+           
                 <Form.Item 
+                style={{textAlign: "center"}}
                 name="username"
                 rules={[
                     {
@@ -61,15 +63,16 @@ const Login = ({ history, loginState, loginActions })=> {
                 ]}
                 >
                     <Input 
+                     style={{maxWidth: "340px"}}
                     name="username" 
                     prefix={<UserOutlined 
                     className="site-form-item-icon" />} 
                     placeholder="Username" 
                     />
                 </Form.Item>
-            </Col>
-            <Col md={{span: 8, offset: 8}}>
+           
                 <Form.Item
+                    style={{textAlign: "center"}}
                     name="password"
                     rules={[
                         {
@@ -79,15 +82,15 @@ const Login = ({ history, loginState, loginActions })=> {
                     ]}
                 >
                     <Input
+                    style={{maxWidth: "340px"}}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="Password"
                     name="password"
                     />
                 </Form.Item>
-            </Col>
-            <Col md={{span: 8, offset: 8}}>
-                <Form.Item>
+           
+                <Form.Item style={{textAlign: "center"}}>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
                         <Checkbox>Remember me</Checkbox>
                     </Form.Item>
@@ -96,9 +99,8 @@ const Login = ({ history, loginState, loginActions })=> {
                         Forgot password
                     </Link>
                 </Form.Item>
-            </Col>
-            <Col md={{span: 8, offset: 8}}>
-                <Form.Item>
+           
+                <Form.Item style={{textAlign: "center"}}>
                     <Button 
                     type="primary" 
                     htmlType="submit" 
@@ -109,8 +111,7 @@ const Login = ({ history, loginState, loginActions })=> {
                     </Button>
                         Or <Link to='/register'>&nbsp;register now!</Link>
                 </Form.Item>
-            </Col>
-            
+           
         </Form>
         </div>
     );
