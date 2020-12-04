@@ -10,14 +10,14 @@ import ChattingComponent from 'page/Chatting';
 const App = ()=> {
     let history = useHistory();
     return (
-        <>
+        <div style={{paddingLeft: "10px", paddingRight: "10px", height:"100vh"}}>
             <Wrapper history = { history }/>
             <Route path="/" component= { HomeComponent } />
             <Route path="/login" component= { Login } />
             <Route path="/register" component= { Register } />
             <Route path="/todolist" component= { TodoComponent } />
             <Route path="/chatting" component= { ChattingComponent } />
-        </>
+        </div>
     );
 }
 
