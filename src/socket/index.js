@@ -1,4 +1,6 @@
 
-export const socketController = (socket)=> {
-    
+export const socketController = (socket, socketIo)=> {
+    return ()=> {
+        
+    }
 }

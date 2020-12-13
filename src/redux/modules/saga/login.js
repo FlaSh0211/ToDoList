@@ -2,8 +2,8 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
 import * as loginAxios from 'api/loginAxios';
 import { Map } from 'immutable';
-const LOGIN = 'login/LOGIN';
 
+const LOGIN = 'login/LOGIN';
 const LOCAL_LOGIN = 'login/LOCAL_LOGIN';
 const LOCAL_RESET = 'login/LOCAL_RESET';
 const RESET = 'login/RESET';
