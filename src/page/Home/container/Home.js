@@ -3,10 +3,9 @@ import { Calendar, Badge } from 'antd';
 import 'antd/dist/antd.css'
 import { bindActionCreators } from 'redux';
 import * as todoListCreators from 'redux/modules/saga/todolist';
-import * as socketCreator from 'redux/modules/saga/socket';
 import { connect } from 'react-redux';
 
-const Home = ({ todoListState, todoListActions, socketActions, socketState }) => {
+const Home = ({ todoListState, todoListActions }) => {
     const [datas,setData] = useState([]);
     
     useEffect(()=> {
@@ -29,10 +28,7 @@ const Home = ({ todoListState, todoListActions, socketActions, socketState }) =>
             setData([])
         }
     }, [todoListState]);
-    useEffect(()=> {
-        socketActions.startChat({email: 'nexus2493@gmail.com'})
-        console.log(socketState.socket,"소켓")
-    },[socketState])
+
     const getListData = value => {
         let year, month, date;
         let listData=[];
@@ -99,10 +95,8 @@ const Home = ({ todoListState, todoListActions, socketActions, socketState }) =>
 export default connect(
     state => ({
         todoListState: state.todolistReducer,
-        socketState: state.socketReducer
     }),
     dispatch => ({
         todoListActions: bindActionCreators( todoListCreators, dispatch),
-        socketActions: bindActionCreators( socketCreator, dispatch )
     })
 )(Home);
