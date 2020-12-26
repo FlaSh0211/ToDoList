@@ -5,7 +5,7 @@ const FormWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 30%;
+    height: 25%;
     border-bottom: 1px solid black;
 `
 

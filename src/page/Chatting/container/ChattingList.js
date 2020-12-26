@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { List, Badge, Space } from 'antd';
 import 'antd/dist/antd.css';
 import * as socketCreator from 'redux/modules/saga/socket';
@@ -58,8 +58,8 @@ const ChatRoomModal = styled.div`
     position: relative;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 30%;
+    width: 85%;
+    height: 50%;
     z-index: 100;
     background-color: white;
 `;
@@ -68,7 +68,7 @@ const InnerWrapper = styled.div`
     /* 공통 스타일 */
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1.5rem;
 
     /* 크기 */
     width: 100%;
@@ -85,7 +85,7 @@ const AddChatBtn = styled.button`
     border-radius: 10%;
     justify-content: center;
     align-items: center;
-    
+
     /* 크기 */
     width: 4rem;
     height: 2rem;
@@ -124,6 +124,9 @@ const ChattingList = ({ history, socketActions, socketState })=> {
             setVisible(false);
         }
     }
+    const addChat = useCallback(()=> {
+        
+    },[])
     return (
         <div>
             <List
@@ -150,7 +153,7 @@ const ChattingList = ({ history, socketActions, socketState })=> {
                 <ChatRoomModal visible={visible} id="modal">
                     <InnerWrapper>
                         <Input placeholder={"채팅방 이름을 입력하세요"} id={"id"}/>
-                        <AddChatBtn>만들기</AddChatBtn>
+                        <AddChatBtn onClick={addChat}>만들기</AddChatBtn>
                     </InnerWrapper>
                 </ChatRoomModal>
             </ModalWrapper>
