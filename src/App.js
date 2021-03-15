@@ -10,7 +10,7 @@ import ChattingComponent from 'page/Chatting';
 const App = ()=> {
     let history = useHistory();
     return (
-        <div style={{paddingLeft: "10px", paddingRight: "10px", height:"100vh"}}>
+        <div style={{paddingLeft: "10px", paddingRight: "10px", height:"100vh", width: "100%"}}>
             <Wrapper history = { history }/>
             <Route path="/" component= { HomeComponent } />
             <Route path="/login" component= { Login } />
